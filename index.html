@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ko">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IT 기본지식 강의 목차</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600&family=Noto+Serif+KR:wght@600;900&display=swap">
+<style>
+/* Layout: one reading column, a numbered list of lectures per group. 「Python 강의 목차」·「Java 강의 목차」와 같은 강의 시리즈 공통 스타일. */
+:root {
+  --bg: #f4f5ef; --surface: #fcfdfb; --ink: #17201b; --muted: #56635b; --line: #d3dbd4;
+  --accent: #2443a0; --accent-soft: #e3e8f7; --warm: #2d7a4e; --warm-soft: #dfefe4;
+  --display: "Noto Serif KR", "Nanum Myeongjo", Batang, serif;
+  --body: "IBM Plex Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --mono: "IBM Plex Mono", D2Coding, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1511; --surface: #161e19; --ink: #e4ebe6; --muted: #98a69d; --line: #2a352e;
+    --accent: #94abf2; --accent-soft: #1f2740; --warm: #6cc593; --warm-soft: #163022; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1511; --surface: #161e19; --ink: #e4ebe6; --muted: #98a69d; --line: #2a352e;
+  --accent: #94abf2; --accent-soft: #1f2740; --warm: #6cc593; --warm-soft: #163022; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 1.0625rem; line-height: 1.8; word-break: keep-all; overflow-wrap: anywhere; }
+.page { max-width: 46rem; margin-inline: auto; padding-inline: 1.25rem; padding-block: 3rem 5rem; display: flex; flex-direction: column; gap: 4rem; }
+section, header.hero, footer { display: flex; flex-direction: column; gap: 1.25rem; min-width: 0; }
+p, ol, h1, h2 { margin: 0; }
+a { color: var(--accent); text-underline-offset: 3px; }
+a:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+h1, h2 { text-wrap: balance; line-height: 1.3; font-family: var(--display); font-weight: 900; }
+h1 { font-size: clamp(2.1rem, 7.2vw, 3.5rem); letter-spacing: -0.02em; }
+h2 { font-size: 1.7rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+.eyebrow { font-family: var(--mono); font-size: 0.8rem; letter-spacing: 0.08em; color: var(--muted); text-transform: uppercase; }
+.lede { font-size: 1.2rem; line-height: 1.7; color: var(--muted); max-width: 34rem; }
+.crumb { font-size: 0.88rem; color: var(--muted); }
+.lec-list { list-style: none; padding: 0; display: flex; flex-direction: column; }
+.lec-list li { display: grid; grid-template-columns: 2.8rem minmax(0, 1fr); column-gap: 1rem; padding-block: 1rem; border-bottom: 1px solid var(--line); }
+.lec-list li > div { display: flex; flex-direction: column; gap: 0.2rem; min-width: 0; }
+.lec-no { font-family: var(--mono); font-weight: 500; color: var(--accent); font-variant-numeric: tabular-nums; line-height: 1.75; }
+.lec-tt { font-weight: 600; font-size: 1.1rem; }
+.lec-ds { color: var(--ink); font-size: 0.96rem; line-height: 1.65; }
+.lec-meta { font-family: var(--mono); font-size: 0.78rem; color: var(--muted); }
+.lec-list li.todo .lec-no, .lec-list li.todo .lec-tt, .lec-list li.todo .lec-ds { color: var(--muted); font-weight: 400; }
+footer { font-size: 0.88rem; color: var(--muted); padding-top: 1.25rem; border-top: 1px solid var(--line); gap: 0.4rem; }
+</style>
+
+<div class="page">
+
+<header class="hero">
+  <p class="eyebrow">백발개발자의 바이브코딩 · 바이브코딩 기초</p>
+  <h1>IT 기본지식 강의 목차</h1>
+  <p class="lede">코드를 몰라도 바이브코딩으로 앱이나 웹 서비스를 만들어 내놓고 싶은 분을 위한, 최소한의 IT 지식 강의입니다. 한 편에 한 장씩, 7개 파트 39편입니다.</p>
+  <p class="crumb">편마다 생활 속 그림 7장과 움직이는 그림 4개로 개념을 보고, 실제 GitHub 프로젝트를 열어 그 개념이 진짜 앱에서 어떻게 쓰이는지 확인합니다. AI에게 그대로 붙여 넣을 질문, 강의 자료, 확인 문제와 풀이를 함께 드립니다. 강의 자료와 움직이는 개념 노트, 예제로 쓰는 저장소는 모두 GitHub 에 공개되어 있어 로그인 없이 볼 수 있습니다(<a href="https://github.com/daehyub71/vibecoding-it-basics">강의 자료 저장소</a>). 영상은 유튜브 <a href="https://www.youtube.com/@50VibeLog">백발개발자의 바이브코딩</a>에 올라옵니다. 아직 만들지 않은 편은 흐리게 표시했습니다. 목차는 강의를 진행하며 바뀔 수 있고, 바뀌면 이 페이지에 바로 반영합니다.</p>
+</header>
+
+<section id="intro">
+  <h2>시작하기</h2>
+  <ol class="lec-list">
+    <li><span class="lec-no">00</span><div><span class="lec-tt">강의 소개</span><span class="lec-ds">이 강의가 누구를 위한 것인지, 왜 필요한지(알아듣기 · 정확히 말하기 · 확인하고 지키기), 그리고 39편의 전체 지도.</span><span class="lec-meta">영상 4분 38초 · 그림 2 · 움직이는 그림 2</span><span class="lec-meta"><a href="https://daehyub71.github.io/vibecoding-it-basics/notes/intro.html">움직이는 개념 노트</a></span><span class="lec-meta">영상 <a href="https://youtu.be/mNR5tlX0ODs">강의 소개</a></span></div></li>
+  </ol>
+</section>
+
+<section id="part1">
+  <h2>Part 1 · 컴퓨터와 인터넷의 정체</h2>
+  <ol class="lec-list">
+    <li><span class="lec-no">1-1</span><div><span class="lec-tt"><a href="https://github.com/daehyub71/vibecoding-it-basics/blob/main/materials/part1-1.md">하드웨어 vs 소프트웨어</a></span><span class="lec-ds">하드웨어는 일을 할 수 있는 본체이고, 소프트웨어는 그 본체에게 무엇을 할지 알려 주는 방법이다. 둘은 싸우는 상대가 아니라 함께 움직이는 한 팀이다.</span><span class="lec-meta">1장 · 영상 14분 · 그림 7 · 움직이는 그림 4</span><span class="lec-meta"><a href="https://github.com/daehyub71/vibecoding-it-basics/blob/main/materials/part1-1.md">강의 자료</a> · <a href="https://daehyub71.github.io/vibecoding-it-basics/notes/part1-1.html">움직이는 개념 노트</a> · <a href="https://github.com/daehyub71/seoul-location-services-app">예제 저장소(GitHub)</a></span></div></li>
+    <li class="todo"><span class="lec-no">1-2</span><div><span class="lec-tt">파일·폴더·경로의 정체</span><span class="lec-ds">파일은 내용을 담은 물건이고, 폴더는 그 물건을 분류하는 공간이며, 경로는 컴퓨터가 그 물건을 찾아가는 주소다.</span><span class="lec-meta">2장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">1-3</span><div><span class="lec-tt">네트워크 vs 인터넷 vs 웹</span><span class="lec-ds">네트워크는 기기들이 연결된 관계이고, 인터넷은 수많은 네트워크가 이어진 거대한 연결망이며, 웹은 그 인터넷 위에서 이용하는 여러 서비스 중 하나다.</span><span class="lec-meta">3장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">1-4</span><div><span class="lec-tt">IP 주소 vs 도메인</span><span class="lec-ds">IP 주소는 네트워크에서 목적지를 찾아 데이터를 전달할 때 쓰는 주소이고, 도메인은 사람이 기억하고 관리하기 쉽게 붙인 이름이다. DNS는 그 이름을 주소로 바꿔 알려 주는 안내 체계다.</span><span class="lec-meta">4장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">1-5</span><div><span class="lec-tt">localhost와 포트는 무엇일까?</span><span class="lec-ds">localhost는 지금 내가 쓰는 컴퓨터 자신을 가리키는 이름이고, 포트 번호는 그 컴퓨터 안에서 어느 프로그램의 문을 두드릴지 정하는 번호다.</span><span class="lec-meta">5장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">1-6</span><div><span class="lec-tt">서버 vs 클라이언트</span><span class="lec-ds">클라이언트는 어떤 서비스를 요청하는 역할이고, 서버는 그 요청을 받아 처리하고 응답하는 역할이다. ‘내 컴퓨터’와 ‘남의 컴퓨터’라는 구분이 아니다.</span><span class="lec-meta">6장 · 준비 중</span></div></li>
+  </ol>
+</section>
+
+<section id="part2">
+  <h2>Part 2 · 웹사이트는 어떻게 움직일까</h2>
+  <ol class="lec-list">
+    <li class="todo"><span class="lec-no">2-1</span><div><span class="lec-tt">프론트엔드 vs 백엔드</span><span class="lec-ds">프론트엔드는 사용자가 보고 조작하는 부분이고, 백엔드는 여러 사용자가 공유하는 데이터와 업무 규칙을 처리하는 부분이다. 둘은 경쟁자가 아니라 역할을 나눈 동료다.</span><span class="lec-meta">7장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">2-2</span><div><span class="lec-tt">요청(Request) vs 응답(Response)</span><span class="lec-ds">웹에서는 누군가 필요한 일을 ‘요청’하고 상대가 처리 결과를 ‘응답’한다. 둘은 서로 반대되는 행위라기보다 하나의 대화를 완성하는 왕복이다.</span><span class="lec-meta">8장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">2-3</span><div><span class="lec-tt">GET vs POST — 그리고 HTTP vs HTTPS</span><span class="lec-ds">GET은 정보를 조회하려는 요청, POST는 서버에 어떤 처리를 맡기려는 요청에 주로 사용한다. HTTP와 HTTPS는 ‘무슨 작업을 하느냐’가 아니라 ‘어떻게 보호해서 전달하느냐’의 차이다.</span><span class="lec-meta">9장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">2-4</span><div><span class="lec-tt">UI vs API — 사람의 창구와 프로그램의 창구</span><span class="lec-ds">UI는 사람이 서비스를 이용하도록 만든 접점이고, API는 프로그램이 정해진 규칙에 따라 서비스의 기능·데이터를 이용하는 접점이다.</span><span class="lec-meta">10장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">2-5</span><div><span class="lec-tt">HTML·CSS·JavaScript의 역할</span><span class="lec-ds">HTML은 웹페이지에 무엇이 있는지 구조를 만들고, CSS는 어떻게 보일지 꾸미며, JavaScript는 사용자 행동에 따라 무슨 일이 일어날지 정한다.</span><span class="lec-meta">11장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">2-6</span><div><span class="lec-tt">JSON vs YAML — 같은 데이터를 담는 두 가지 문서 양식</span><span class="lec-ds">JSON과 YAML은 프로그램이 사용할 데이터를 글자로 구조화하는 두 가지 형식이다. JSON은 데이터 교환에서, YAML은 사람이 읽고 편집하는 설정 문서에서 자주 만난다.</span><span class="lec-meta">12장 · 준비 중</span></div></li>
+  </ol>
+</section>
+
+<section id="part3">
+  <h2>Part 3 · 프로그램과 데이터의 기본 원리</h2>
+  <ol class="lec-list">
+    <li class="todo"><span class="lec-no">3-1</span><div><span class="lec-tt">데이터 vs 정보 — 숫자는 언제 의미가 될까?</span><span class="lec-ds">데이터는 관찰하고 기록한 재료이고, 정보는 그 재료를 어떤 질문에 맞게 정리하여 해석할 수 있게 만든 결과다. 정보가 되었다고 해서 언제나 정확하거나 충분한 것은 아니다.</span><span class="lec-meta">13장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">3-2</span><div><span class="lec-tt">파일 vs 데이터베이스 — 메모장과 공동 장부는 어떻게 다를까?</span><span class="lec-ds">파일은 정해진 형식으로 내용을 저장하는 단위이고, 데이터베이스는 여러 데이터를 체계적으로 찾아 고치고 함께 사용하게 돕는 관리 방식이다. 둘은 경쟁하는 적이 아니라 규모와 목적에 따라 조합하는 수단이다.</span><span class="lec-meta">14장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">3-3</span><div><span class="lec-tt">관계형 DB vs NoSQL — 규칙 있는 장부와 유연한 기록</span><span class="lec-ds">관계형 DB는 표와 관계, SQL을 중심으로 데이터를 관리하고, NoSQL은 관계형 표 이외의 여러 데이터 모델을 묶어 부르는 이름이다. 어떤 방식이 좋은지는 유행이 아니라 데이터의 모양과 서비스의 요구가 정한다.</span><span class="lec-meta">15장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">3-4</span><div><span class="lec-tt">리스트 vs 딕셔너리 — 번호표 서랍과 이름표 서랍</span><span class="lec-ds">리스트는 순서와 위치로 여러 값을 담는 그릇이고, 딕셔너리는 키라는 이름표로 값을 찾는 그릇이다. 실제 프로그램은 두 그릇을 서로의 안에 넣어 쓴다.</span><span class="lec-meta">16장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">3-5</span><div><span class="lec-tt">변수·조건문·반복문·함수 — 택배 분류장에서 배우는 프로그래밍</span><span class="lec-ds">프로그램은 값을 기억하고(변수), 조건을 확인해 갈림길을 고르고(조건문), 같은 일을 여러 번 하고(반복문), 자주 하는 작업 묶음에 이름을 붙인다(함수). AI가 짠 코드를 읽을 때 가장 먼저 찾을 네 가지 동작이다.</span><span class="lec-meta">17장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">3-6</span><div><span class="lec-tt">동기 vs 비동기 — 기다리는 카페와 진동벨 카페</span><span class="lec-ds">동기와 비동기는 일의 결과를 어떻게 기다렸다가 이어 가는지에 대한 약속이다. 비동기는 ‘동시에 계산한다’나 ‘무조건 빠르다’는 뜻이 아니라, 기다리는 동안 다른 일을 할 수 있게 짠다는 뜻이다.</span><span class="lec-meta">18장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">3-7</span><div><span class="lec-tt">프로세스 vs 스레드 — 독립된 식당과 주방의 여러 직원</span><span class="lec-ds">프로세스는 운영체제가 실행 중인 프로그램에 내어 주는 독립된 작업 공간이고, 스레드는 그 공간 안에서 명령을 실행하는 흐름이다. 무엇을 나누고 무엇을 함께 쓰는지 알면 서버 오류와 성능 문제를 더 정확히 질문할 수 있다.</span><span class="lec-meta">19장 · 준비 중</span></div></li>
+  </ol>
+</section>
+
+<section id="part4">
+  <h2>Part 4 · AI가 코드를 만들 때 등장하는 도구들</h2>
+  <ol class="lec-list">
+    <li class="todo"><span class="lec-no">4-1</span><div><span class="lec-tt">터미널 vs 코드 에디터 — 컴퓨터에게 말로 시킬까, 눈으로 고칠까?</span><span class="lec-ds">터미널은 명령을 입력해 프로그램과 운영체제에 일을 시키는 통로이고, 코드 에디터는 파일을 눈으로 보며 고치기 편하게 돕는 작업 공간이다. 둘은 같은 프로젝트 폴더를 두 방향에서 다루는 짝이다.</span><span class="lec-meta">20장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">4-2</span><div><span class="lec-tt">라이브러리 vs 프레임워크 — 내가 도구를 부를까, 시스템이 나를 부를까?</span><span class="lec-ds">라이브러리는 필요할 때 내 코드가 불러 쓰는 남의 코드이고, 프레임워크는 앱의 큰 틀과 실행 흐름을 먼저 쥐고 정해진 순간에 내 코드를 불러 주는 기반이다. 경계가 늘 뚜렷하지는 않지만, ‘누가 누구를 부르는가’를 보면 대부분 구별된다.</span><span class="lec-meta">21장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">4-3</span><div><span class="lec-tt">Git vs GitHub — 되돌릴 수 있는 작업 기록과 함께 쓰는 저장소</span><span class="lec-ds">Git은 내 컴퓨터에서 파일의 변경 역사를 기록하고 비교·합치는 도구이고, GitHub는 그 기록을 온라인에 올려 다른 기기·다른 사람과 함께 보고 검토하게 해 주는 서비스다. 함께 쓰기 좋지만 같은 것은 아니다.</span><span class="lec-meta">22장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">4-4</span><div><span class="lec-tt">테스트 vs 디버깅 — 고장을 찾아내는 검사와 원인을 고치는 수리</span><span class="lec-ds">테스트는 정해 둔 조건에서 프로그램이 기대한 결과를 내는지 확인하는 일이고, 디버깅은 기대와 다른 결과가 나왔을 때 그 원인을 찾아 고치는 일이다. 테스트는 결함이 있다는 사실을 보여 줄 수는 있지만, 결함이 하나도 없다는 것을 보증하지는 못한다.</span><span class="lec-meta">23장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">4-5</span><div><span class="lec-tt">로컬 실행 vs 배포 — 내 방의 시연회에서 동네 공개 전시장까지</span><span class="lec-ds">로컬 실행은 내 컴퓨터나 직접 다루는 개발 환경에서 프로그램을 돌려 보는 일이고, 배포는 실행할 결과물을 정해진 대상 환경에 옮겨 다른 사람이 쓸 수 있게 하는 일이다. 배포와 공개 운영은 이어져 있지만 같은 말은 아니다.</span><span class="lec-meta">24장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">4-6</span><div><span class="lec-tt">온프레미스 vs 클라우드 — 서버를 직접 관리할까, 필요한 만큼 빌릴까?</span><span class="lec-ds">온프레미스는 조직이 통제하는 자체 시설에 IT 자원을 갖추고 운영하는 방식이고, 클라우드는 제공자의 컴퓨팅·저장·네트워크 자원을 서비스로 빌려 쓰는 방식이다. 클라우드를 쓴다고 ‘남의 컴퓨터이니 모든 책임이 사라진다’는 뜻은 아니다.</span><span class="lec-meta">25장 · 준비 중</span></div></li>
+  </ol>
+</section>
+
+<section id="part5">
+  <h2>Part 5 · 프로그램을 세상에 공개하고 안전하게 운영하기</h2>
+  <ol class="lec-list">
+    <li class="todo"><span class="lec-no">5-1</span><div><span class="lec-tt">가상머신 vs 컨테이너 — 집 한 채를 마련할까, 같은 건물 안에 작업실을 꾸릴까?</span><span class="lec-ds">가상머신은 물리 컴퓨터 한 대 위에 운영체제까지 갖춘 컴퓨터를 여러 대 만들어 쓰는 방법이고, 컨테이너는 호스트 운영체제의 커널을 함께 쓰면서 앱과 실행에 필요한 파일만 묶어 따로 떼어 실행하는 방법이다. 둘은 경쟁 상품이라기보다 격리의 깊이가 다른 도구이고, 함께 쓰이는 일도 많다.</span><span class="lec-meta">26장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">5-2</span><div><span class="lec-tt">CI vs CD — 자동 검사대와 자동 출하대는 무엇이 다를까?</span><span class="lec-ds">CI(지속적 통합)는 작은 변경을 자주 합치고 그때마다 자동으로 빌드·테스트해 문제를 일찍 찾는 습관이다. CD는 검증된 변경을 언제든 내보낼 수 있게 준비해 두거나(지속적 전달) 조건을 채우면 실제 서비스까지 자동으로 내보내는(지속적 배포) 흐름이다. 두 CD는 줄임말이 같아서 꼭 구별해 읽어야 한다.</span><span class="lec-meta">27장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">5-3</span><div><span class="lec-tt">공개해도 되는 정보 vs 지켜야 하는 비밀 — 앱의 간판과 열쇠를 구별하는 법</span><span class="lec-ds">서비스의 주소·공개 화면·일반 설정은 사용자에게 보여도 되지만, API 키·암호·비밀 토큰·개인정보는 목적에 맞게 접근을 제한해야 한다. .env 파일은 정리 방법의 하나일 뿐, 그 자체가 암호화된 금고는 아니다.</span><span class="lec-meta">28장 · 준비 중</span></div></li>
+  </ol>
+</section>
+
+<section id="part6">
+  <h2>Part 6 · AI와 바이브코딩</h2>
+  <ol class="lec-list">
+    <li class="todo"><span class="lec-no">6-1</span><div><span class="lec-tt">전통적인 프로그램 vs LLM</span><span class="lec-ds">전통적인 프로그램은 사람이 적어 둔 규칙을 그대로 실행해 같은 입력에 같은 답을 내고, LLM은 지금까지의 글 뒤에 올 그럴듯한 말을 골라 이어 붙여 답을 만든다. 숫자는 프로그램에게, 말은 LLM에게 맡기고 그 사이에 검사를 둔다.</span><span class="lec-meta">29장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">6-2</span><div><span class="lec-tt">학습 vs 추론</span><span class="lec-ds">학습(training)은 수많은 예제를 보며 모델 안의 숫자(가중치)를 조금씩 고쳐 가는 긴 과정이고, 추론(inference)은 다 만들어진 모델에 지금의 입력을 넣어 답을 얻는 과정이다. 우리가 AI에게 질문하는 순간은 거의 언제나 추론이다.</span><span class="lec-meta">30장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">6-3</span><div><span class="lec-tt">LLM vs sLLM</span><span class="lec-ds">sLLM은 상대적으로 작은 언어 모델을 부르는 말이고, 얼마나 작아야 sLLM인지는 정해져 있지 않다. 모델을 고를 때는 크기 하나가 아니라 어디서 돌리는지, 내 자료가 어디로 가는지, 품질과 비용이 맞는지를 함께 본다.</span><span class="lec-meta">31장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">6-4</span><div><span class="lec-tt">프롬프트·토큰·컨텍스트 윈도우 — 좋은 질문과 제한된 기억 공간</span><span class="lec-ds">프롬프트는 AI에게 건네는 작업 지시서이고, 토큰은 AI가 글을 자르고 세는 단위이며, 컨텍스트 윈도우는 지시서·자료·대화 기록·답이 한꺼번에 올라가야 하는 책상의 크기다.</span><span class="lec-meta">32장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">6-5</span><div><span class="lec-tt">RAG vs 파인튜닝 — 문서를 찾아 답하기와 모델 자체를 바꾸기</span><span class="lec-ds">RAG는 질문이 올 때마다 관련 문서 조각을 찾아 프롬프트에 붙여 주는 방법이고, 파인튜닝은 예시 데이터로 모델을 더 학습시켜 모델 자체를 바꾸는 방법이다. RAG에서 모델은 그대로다.</span><span class="lec-meta">33장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">6-6</span><div><span class="lec-tt">AI 챗봇 vs AI 에이전트 — 말로 답하는 AI와 일을 수행하는 AI</span><span class="lec-ds">챗봇은 질문을 받아 답을 돌려주는 대화 창구이고, 에이전트는 목표를 받아 계획 → 도구 호출 → 결과 관찰 → 다음 행동을 되풀이하며 일을 끝내는 실행자다. 둘을 가르는 것은 똑똑함이 아니라 맡긴 일의 범위와 권한이다.</span><span class="lec-meta">34장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">6-7</span><div><span class="lec-tt">직접 API 연결 vs MCP</span><span class="lec-ds">직접 API 연결은 프로그램이 서비스마다 그 서비스의 방식대로 따로 말을 거는 것이고, MCP는 AI 앱과 도구 사이에 공통 규격의 창구를 세우는 것이다. 창구 뒤에서 실제로 일하는 것은 여전히 각 서비스의 API다.</span><span class="lec-meta">35장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">6-8</span><div><span class="lec-tt">AI의 Skills·Tools·Hooks</span><span class="lec-ds">Skill은 AI가 필요할 때 꺼내 읽는 작업 설명서, Tool은 AI가 실제로 일을 하려고 손을 뻗는 도구, Hook은 정해진 순간마다 AI의 선택과 상관없이 자동으로 실행되는 사용자 규칙이다.</span><span class="lec-meta">36장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">6-9</span><div><span class="lec-tt">AI가 틀렸을 때 어떻게 검증할까</span><span class="lec-ds">AI의 답은 자신감 있는 초안이다. 증거는 실행 결과, 원본 문서, 테스트, 청구서처럼 AI 바깥에서 가져온다.</span><span class="lec-meta">37장 · 준비 중</span></div></li>
+  </ol>
+</section>
+
+<section id="part7">
+  <h2>Part 7 · 실전 바이브코딩</h2>
+  <ol class="lec-list">
+    <li class="todo"><span class="lec-no">7-1</span><div><span class="lec-tt">아이디어부터 배포까지 실제 GitHub 프로젝트로 완주하기</span><span class="lec-ds">AI가 코드를 빨리 써 줘도 완주는 순서가 만든다. 문제를 문장으로 적고, 작게 쪼개 만들고, 테스트로 확인하고, 기록을 남기고, 공개한 다음 날까지 살펴야 한 바퀴다.</span><span class="lec-meta">38장 · 준비 중</span></div></li>
+    <li class="todo"><span class="lec-no">7-2</span><div><span class="lec-tt">바이브코딩에서 흔한 오류 10가지</span><span class="lec-ds">화면이 뜨는 것과 제대로 작동하는 것은 다르다. 오류를 고치는 힘은 코드를 외우는 데서가 아니라, 증거가 어느 층에서 끊겼는지 가려내는 데서 나온다.</span><span class="lec-meta">39장 · 준비 중</span></div></li>
+  </ol>
+</section>
+
+<footer>
+  <p>기반 자료: 「바이브코딩 IT 기본지식」 원고(2026년 10월 개정판). 실제 저장소 사례는 공개 GitHub 저장소에서 확인한 내용이며, 설명을 위해 단순화한 부분은 강의 자료에 따로 표시합니다.</p>
+</footer>
+
+</div>

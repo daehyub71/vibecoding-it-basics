@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ko">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<title>움직이는 개념 노트 1장</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+/* 색 B(모눈 공책) — html 에 data-pal=B 기본
+/* 레이아웃: 가운데 한 기둥(최대 1040px) — 머리말 → 움직이는 그림 카드 → 메모. 카드마다 무대(SVG)·설명·조작. 영상 모드는 kit.js 가 1920×1080 틀로 바꾼다.
+   색: hw = 하드웨어(남색), sw = 소프트웨어(청록), hot = 지금 보는 곳(코랄), alert = 문제 상황. B안은 모눈 공책(잉크 파랑·초록·형광 노랑). */
+:root{
+  --bg:#FAF9F6; --bg2:#EEF1F4; --card:#FFFFFF; --fg:#1B2430; --muted:#5E6A79; --line:#D8DEE6;
+  --hw:#1F3A5F; --hw-soft:#E4EBF4; --sw:#0F7F7C; --sw-soft:#DCEFEC; --hot:#E2603E; --hot-soft:#FCE6DF; --hot-ink:#B4432A;
+  --alert:#C93C2E; --alert-soft:#FBE3DF; --onhw:#FFFFFF; --onsw:#FFFFFF; --onhot:#FFFFFF; --screen-off:#18202B; --finger:#F0BE9B;
+  --grid:transparent;
+  --f-sans:"IBM Plex Sans KR","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+:root[data-pal="B"]{
+  --bg:#F4F5EF; --bg2:#E9ECE3; --card:#FFFFFF; --fg:#20242B; --muted:#5D6470; --line:#D3D8CB;
+  --hw:#2443A0; --hw-soft:#E3E8F7; --sw:#2D7A4E; --sw-soft:#DFEFE4; --hot:#F2B705; --hot-soft:#FDF3CF; --hot-ink:#7E5B00;
+  --alert:#CF3F33; --alert-soft:#FBE2DE; --onhw:#FFFFFF; --onsw:#FFFFFF; --onhot:#20242B; --screen-off:#1D2127; --finger:#EDBF9C; --grid:#E1E5D8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10151C; --bg2:#18202A; --card:#17202B; --fg:#E6EBF1; --muted:#9AA6B5; --line:#2B3542;
+    --hw:#89ABDB; --hw-soft:#1D2A3B; --sw:#4CC1B6; --sw-soft:#12302D; --hot:#F08868; --hot-soft:#3A2119; --hot-ink:#F5A58C;
+    --alert:#F07B6B; --alert-soft:#3A1E1B; --onhw:#0E1520; --onsw:#06201D; --onhot:#1B0E09; --screen-off:#05080C; --finger:#C99A7A; --grid:transparent; color-scheme:dark;
+  }
+  :root[data-pal="B"]:not([data-theme="light"]){
+    --bg:#121519; --bg2:#1A1F25; --card:#1B2026; --fg:#E7EAE3; --muted:#A0A79C; --line:#2E343A;
+    --hw:#94ABF2; --hw-soft:#1F2740; --sw:#6CC593; --sw-soft:#163022; --hot:#F5C842; --hot-soft:#3A3011; --hot-ink:#F5C842;
+    --alert:#F07B6B; --alert-soft:#3A1E1B; --onhw:#0F1428; --onsw:#0A1F12; --onhot:#1A1505; --screen-off:#05070A; --finger:#C99A7A; --grid:#20262C;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10151C; --bg2:#18202A; --card:#17202B; --fg:#E6EBF1; --muted:#9AA6B5; --line:#2B3542;
+  --hw:#89ABDB; --hw-soft:#1D2A3B; --sw:#4CC1B6; --sw-soft:#12302D; --hot:#F08868; --hot-soft:#3A2119; --hot-ink:#F5A58C;
+  --alert:#F07B6B; --alert-soft:#3A1E1B; --onhw:#0E1520; --onsw:#06201D; --onhot:#1B0E09; --screen-off:#05080C; --finger:#C99A7A; --grid:transparent; color-scheme:dark;
+}
+:root[data-theme="dark"][data-pal="B"]{
+  --bg:#121519; --bg2:#1A1F25; --card:#1B2026; --fg:#E7EAE3; --muted:#A0A79C; --line:#2E343A;
+  --hw:#94ABF2; --hw-soft:#1F2740; --sw:#6CC593; --sw-soft:#163022; --hot:#F5C842; --hot-soft:#3A3011; --hot-ink:#F5C842;
+  --alert:#F07B6B; --alert-soft:#3A1E1B; --onhw:#0F1428; --onsw:#0A1F12; --onhot:#1A1505; --screen-off:#05070A; --finger:#C99A7A; --grid:#20262C;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-sans);font-size:16px;line-height:1.65;margin:0;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px}
+.wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+.top{display:flex;flex-direction:column;gap:10px}
+.eyebrow{margin:0;font:600 .82rem/1.5 var(--f-mono);letter-spacing:.04em;color:var(--sw)}
+h1{margin:0;font-size:clamp(1.75rem,4.2vw,2.5rem);line-height:1.2;font-weight:700;text-wrap:balance}
+.lead{margin:0;color:var(--muted);max-width:64ch}
+.pal{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:4px}
+.pal span{font-size:.9rem;color:var(--muted);margin-right:2px}
+.pal button{font:600 .88rem var(--f-sans);border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:6px 14px;cursor:pointer}
+.pal button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+section.anim{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px;outline:none}
+.ahead{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px}
+.fig{font:700 .88rem var(--f-sans);color:var(--hot-ink);letter-spacing:.01em}
+h2{margin:0;font-size:1.4rem;line-height:1.3;text-wrap:balance}
+.where{font-size:.88rem;color:var(--muted)}
+.intro{margin:0;max-width:68ch}
+.tabs{display:flex;gap:4px;background:var(--bg2);border-radius:12px;padding:4px;align-self:flex-start}
+.tab{border:0;background:transparent;font:600 .92rem var(--f-sans);padding:7px 14px;border-radius:9px;color:var(--muted);cursor:pointer}
+.tab[aria-selected="true"]{background:var(--card);color:var(--fg);box-shadow:0 1px 2px rgba(20,30,45,.12)}
+.stage-wrap{overflow-x:auto;border-radius:14px;background-color:var(--bg);border:1px solid var(--line)}
+:root[data-pal="B"] .stage-wrap,:root[data-pal="B"] #vframe{background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+svg.stage{display:block;width:100%;min-width:640px;height:auto}
+.t-sans{font-family:var(--f-sans)} .t-mono{font-family:var(--f-mono)}
+.pane-steps,.pane-sb{display:flex;flex-direction:column;gap:12px}
+.cap{display:flex;flex-direction:column;gap:2px;min-height:4.6em}
+.cap-n{font:600 .85rem var(--f-mono);color:var(--sw)}
+.cap-t{font-size:1.08rem;max-width:70ch}
+.ctl{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.ctl button,.sbb{font:600 .92rem var(--f-sans);border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:10px;padding:8px 14px;cursor:pointer}
+.ctl .b-play{background:var(--hw);border-color:var(--hw);color:var(--onhw);min-width:6.5em}
+.dots{display:flex;flex-wrap:wrap;gap:6px;margin-left:4px}
+.ctl .dot{width:34px;height:34px;padding:0;border-radius:50%;font:600 .84rem var(--f-mono)}
+.ctl .dot[aria-current="step"]{background:var(--hot);border-color:var(--hot);color:var(--onhot)}
+.sb-btns{display:flex;flex-wrap:wrap;gap:8px}
+.sb-status p{margin:.2em 0}
+.sb-status b{font-family:var(--f-mono);font-weight:600}
+.warn{color:var(--alert);font-weight:600}
+button:focus-visible{outline:3px solid var(--hot);outline-offset:2px}
+button:disabled{opacity:.42;cursor:not-allowed}
+.hint{display:none;margin:-6px 0 0;font-size:.84rem;color:var(--muted)}
+@media (max-width:700px){.hint{display:block}}
+.acc{margin:0;font-size:.88rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+.note{color:var(--muted);font-size:.9rem;display:flex;flex-direction:column;gap:6px}
+.note p{margin:0}
+/* ── 영상 모드(1920×1080) ── */
+body.video{padding:0;margin:0;overflow:hidden;width:1920px;height:1080px}
+body.video .wrap{display:none}
+#vframe{position:fixed;left:0;top:0;width:1920px;height:1080px;background-color:var(--bg);color:var(--fg);font-family:var(--f-sans)}
+#vframe .vh{position:absolute;left:110px;right:110px;top:34px;display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--line);padding-bottom:14px}
+#vframe .vsec{color:var(--hw);font-weight:700;font-size:30px}
+#vframe .vlec{color:var(--muted);font-size:24px}
+#vframe .vtitle{position:absolute;left:300px;top:116px;display:flex;align-items:baseline;gap:18px}
+#vframe .vfig{font:700 27px var(--f-sans);color:var(--hot-ink)}
+#vframe .vname{font-size:36px;font-weight:700}
+#vframe .vrail{position:absolute;left:40px;top:196px;width:236px;margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+#vframe .vrail li{display:flex;align-items:center;gap:12px;font-size:21px;color:var(--muted);line-height:1.2}
+#vframe .vrail b{flex:none;width:38px;height:38px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font:600 18px var(--f-mono);color:var(--muted);background:var(--card)}
+#vframe .vrail li.done b{border-color:var(--hw);color:var(--hw)}
+#vframe .vrail li.now{color:var(--fg);font-weight:700}
+#vframe .vrail li.now b{background:var(--hot);border-color:var(--hot);color:var(--onhot)}
+#vframe .vstage{position:absolute;left:300px;top:178px;width:1580px;height:870px}
+@media (prefers-reduced-motion: reduce){ *{scroll-behavior:auto} }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow">바이브코딩 기초 · IT 기본지식 Part1-1 · 01장 하드웨어 vs 소프트웨어</p>
+    <h1>움직이는 개념 노트 1장</h1>
+    <p class="lead">강의 영상에 나오는 움직이는 그림 네 개를 한 단계씩 넘겨 보고, 「직접 해 보기」에서 눌러 보는 곳입니다. 바탕 그림 위에 라벨과 신호가 차례로 얹힙니다.</p>
+  </header>
+  <section class="anim" data-anim="a01_01" id="a01_01" tabindex="-1" aria-labelledby="h-a01_01">
+    <div class="ahead"><span class="fig">움직이는 그림 1-A</span><h2 id="h-a01_01">두 세계의 경계</h2><span class="where">본문 1.2</span></div>
+    <p class="intro">앱은 부품을 직접 만지지 않고 가운데의 운영체제에게 부탁합니다.</p>
+    <div class="tabs" role="tablist" aria-label="보기 방식">
+      <button type="button" class="tab" role="tab" id="a01_01-tab-steps" data-mode="steps" aria-selected="true">설명 따라 보기</button>
+      <button type="button" class="tab" role="tab" id="a01_01-tab-sb" data-mode="sb" aria-selected="false">직접 해 보기</button>
+    </div>
+    <div class="stage-wrap" style="background:#fff"><svg class="stage" role="img" aria-label="앱, 운영체제, 스마트폰 부품의 3층 구조"></svg></div>
+    <p class="hint">그림을 옆으로 밀면 오른쪽 부분까지 볼 수 있습니다.</p>
+    <div class="pane-steps">
+      <div class="cap" aria-live="polite"><span class="cap-n"></span><span class="cap-t"></span></div>
+      <div class="ctl">
+        <button type="button" class="b-prev" id="a01_01-prev">◀ 이전</button>
+        <button type="button" class="b-play" id="a01_01-play" aria-pressed="false">▶ 재생</button>
+        <button type="button" class="b-next" id="a01_01-next">다음 ▶</button>
+        <button type="button" class="b-reset" id="a01_01-reset">↺ 처음부터</button>
+        <div class="dots" role="group" aria-label="단계 고르기"></div>
+      </div>
+    </div>
+    <div class="pane-sb" hidden><div class="sb-btns"></div><div class="sb-status" aria-live="polite"></div></div>
+  </section>
+  <section class="anim" data-anim="a01_02" id="a01_02" tabindex="-1" aria-labelledby="h-a01_02">
+    <div class="ahead"><span class="fig">움직이는 그림 1-B</span><h2 id="h-a01_02">컴퓨터 속 세 장소</h2><span class="where">본문 1.3</span></div>
+    <p class="intro">앱을 실행하면 프로그램이 저장장치에서 메모리로 올라오고 CPU가 처리합니다. 저장과 전원 끄기가 남기는 차이를 보세요.</p>
+    <div class="tabs" role="tablist" aria-label="보기 방식">
+      <button type="button" class="tab" role="tab" id="a01_02-tab-steps" data-mode="steps" aria-selected="true">설명 따라 보기</button>
+      <button type="button" class="tab" role="tab" id="a01_02-tab-sb" data-mode="sb" aria-selected="false">직접 해 보기</button>
+    </div>
+    <div class="stage-wrap" style="background:#fff"><svg class="stage" role="img" aria-label="노트북 안의 저장장치, 메모리, CPU와 화면"></svg></div>
+    <p class="hint">그림을 옆으로 밀면 오른쪽 부분까지 볼 수 있습니다.</p>
+    <div class="pane-steps">
+      <div class="cap" aria-live="polite"><span class="cap-n"></span><span class="cap-t"></span></div>
+      <div class="ctl">
+        <button type="button" class="b-prev" id="a01_02-prev">◀ 이전</button>
+        <button type="button" class="b-play" id="a01_02-play" aria-pressed="false">▶ 재생</button>
+        <button type="button" class="b-next" id="a01_02-next">다음 ▶</button>
+        <button type="button" class="b-reset" id="a01_02-reset">↺ 처음부터</button>
+        <div class="dots" role="group" aria-label="단계 고르기"></div>
+      </div>
+    </div>
+    <div class="pane-sb" hidden><div class="sb-btns"></div><div class="sb-status" aria-live="polite"></div></div>
+  </section>
+  <section class="anim" data-anim="a01_03" id="a01_03" tabindex="-1" aria-labelledby="h-a01_03">
+    <div class="ahead"><span class="fig">움직이는 그림 1-C</span><h2 id="h-a01_03">설치에서 실행까지</h2><span class="where">본문 1.5</span></div>
+    <p class="intro">설치는 파일을 제자리에 놓는 일, 실행은 프로세스가 생기는 일입니다.</p>
+    <div class="tabs" role="tablist" aria-label="보기 방식">
+      <button type="button" class="tab" role="tab" id="a01_03-tab-steps" data-mode="steps" aria-selected="true">설명 따라 보기</button>
+      <button type="button" class="tab" role="tab" id="a01_03-tab-sb" data-mode="sb" aria-selected="false">직접 해 보기</button>
+    </div>
+    <div class="stage-wrap" style="background:#fff"><svg class="stage" role="img" aria-label="구름, 다운로드 폴더, 응용 프로그램 폴더, 노트북 화면, 실행 목록"></svg></div>
+    <p class="hint">그림을 옆으로 밀면 오른쪽 부분까지 볼 수 있습니다.</p>
+    <div class="pane-steps">
+      <div class="cap" aria-live="polite"><span class="cap-n"></span><span class="cap-t"></span></div>
+      <div class="ctl">
+        <button type="button" class="b-prev" id="a01_03-prev">◀ 이전</button>
+        <button type="button" class="b-play" id="a01_03-play" aria-pressed="false">▶ 재생</button>
+        <button type="button" class="b-next" id="a01_03-next">다음 ▶</button>
+        <button type="button" class="b-reset" id="a01_03-reset">↺ 처음부터</button>
+        <div class="dots" role="group" aria-label="단계 고르기"></div>
+      </div>
+    </div>
+    <div class="pane-sb" hidden><div class="sb-btns"></div><div class="sb-status" aria-live="polite"></div></div>
+  </section>
+  <section class="anim" data-anim="a01_04" id="a01_04" tabindex="-1" aria-labelledby="h-a01_04">
+    <div class="ahead"><span class="fig">움직이는 그림 1-D</span><h2 id="h-a01_04">손가락 한 번의 여행</h2><span class="where">본문 1.10</span></div>
+    <p class="intro">단추를 누른 순간부터 목록이 뜰 때까지 신호가 하드웨어와 소프트웨어를 번갈아 지나갑니다.</p>
+    <div class="tabs" role="tablist" aria-label="보기 방식">
+      <button type="button" class="tab" role="tab" id="a01_04-tab-steps" data-mode="steps" aria-selected="true">설명 따라 보기</button>
+      <button type="button" class="tab" role="tab" id="a01_04-tab-sb" data-mode="sb" aria-selected="false">직접 해 보기</button>
+    </div>
+    <div class="stage-wrap" style="background:#fff"><svg class="stage" role="img" aria-label="스마트폰 단면, 지도 앱 판, 운영체제 판"></svg></div>
+    <p class="hint">그림을 옆으로 밀면 오른쪽 부분까지 볼 수 있습니다.</p>
+    <div class="pane-steps">
+      <div class="cap" aria-live="polite"><span class="cap-n"></span><span class="cap-t"></span></div>
+      <div class="ctl">
+        <button type="button" class="b-prev" id="a01_04-prev">◀ 이전</button>
+        <button type="button" class="b-play" id="a01_04-play" aria-pressed="false">▶ 재생</button>
+        <button type="button" class="b-next" id="a01_04-next">다음 ▶</button>
+        <button type="button" class="b-reset" id="a01_04-reset">↺ 처음부터</button>
+        <div class="dots" role="group" aria-label="단계 고르기"></div>
+      </div>
+    </div>
+    <div class="pane-sb" hidden><div class="sb-btns"></div><div class="sb-status" aria-live="polite"></div></div>
+  </section>
+  <footer class="note"><p>정확성 메모 — 그림은 개념 모형입니다. 실제로는 드라이버, 캐시, 가상 메모리처럼 생략한 단계가 더 있습니다.</p></footer>
+</div>
+<script>document.documentElement.setAttribute("data-pal", "B");</script>
+<script src="kit.js"></script>
+<script src="a01_defs.js"></script>
+<script>IT.start();</script>
