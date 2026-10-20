@@ -10,7 +10,7 @@
 
 | 항목 | 주소 |
 | --- | --- |
-| 강의 영상 | 바이브코딩 기초 : IT 기본지식 Part1-1 (유튜브 공개 후 주소를 넣습니다) |
+| 강의 영상 | [바이브코딩 기초 : IT 기본지식 Part1-1](https://youtu.be/HSNrBiDYb4k) |
 | 예제 저장소 | [github.com/daehyub71/seoul-location-services-app](https://github.com/daehyub71/seoul-location-services-app) — 서울시 위치 기반 공공서비스 앱 |
 | 움직이는 개념 노트 | [움직이는 그림 4개](https://daehyub71.github.io/vibecoding-it-basics/notes/part1-1.html) — 단계 넘기기 · 재생 · 직접 해 보기 |
 | 강의 목차 | [39편 전체 목차](https://daehyub71.github.io/vibecoding-it-basics/) |
