@@ -109,6 +109,15 @@ body.video .wrap{display:none}
 #vframe .vrail li.now{color:var(--fg);font-weight:700}
 #vframe .vrail li.now b{background:var(--hot);border-color:var(--hot);color:var(--onhot)}
 #vframe .vstage{position:absolute;left:300px;top:178px;width:1580px;height:870px}
+section.quiz{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.quiz ol{margin:0;padding-left:1.4em;display:flex;flex-direction:column;gap:14px}
+.quiz li{padding-left:4px}
+.quiz .qq{margin:0 0 6px;font-weight:600}
+.quiz details{border-left:3px solid var(--sw);background:var(--sw-soft);border-radius:0 10px 10px 0;padding:8px 12px}
+.quiz summary{cursor:pointer;font-weight:600;color:var(--sw)}
+.quiz details p{margin:8px 0 0}
+.quiz .go{font-size:.9rem;color:var(--muted)}
+.quiz a{color:var(--hw)}
 @media (prefers-reduced-motion: reduce){ *{scroll-behavior:auto} }
 </style>
 
@@ -116,7 +125,7 @@ body.video .wrap{display:none}
   <header class="top">
     <p class="eyebrow">바이브코딩 기초 · IT 기본지식 Part1-1 · 01장 하드웨어 vs 소프트웨어</p>
     <h1>움직이는 개념 노트 1장</h1>
-    <p class="lead">강의 영상에 나오는 움직이는 그림 네 개를 한 단계씩 넘겨 보고, 「직접 해 보기」에서 눌러 보는 곳입니다. 바탕 그림 위에 라벨과 신호가 차례로 얹힙니다.</p>
+    <p class="lead">강의 영상에 나오는 움직이는 그림 네 개를 한 단계씩 넘겨 보고, 「직접 해 보기」에서 눌러 보는 곳입니다. 맨 아래에 <a href="#quiz">확인 문제 풀이</a>가 있습니다. 바탕 그림 위에 라벨과 신호가 차례로 얹힙니다.</p>
   </header>
   <section class="anim" data-anim="a01_01" id="a01_01" tabindex="-1" aria-labelledby="h-a01_01">
     <div class="ahead"><span class="fig">움직이는 그림 1-A</span><h2 id="h-a01_01">두 세계의 경계</h2><span class="where">본문 1.2</span></div>
@@ -201,6 +210,22 @@ body.video .wrap{display:none}
       </div>
     </div>
     <div class="pane-sb" hidden><div class="sb-btns"></div><div class="sb-status" aria-live="polite"></div></div>
+  </section>
+  <section class="quiz" id="quiz" aria-labelledby="h-quiz">
+    <div class="ahead"><span class="fig">확인 문제</span><h2 id="h-quiz">영상 속 다섯 문제</h2><span class="where">본문 「확인 문제」</span></div>
+    <p class="intro">먼저 스스로 답해 본 뒤 「풀이 보기」를 눌러 맞춰 보세요. 헷갈리면 「다시 보기」의 움직이는 그림으로 돌아가면 됩니다.</p>
+    <ol>
+      <li><p class="qq">AI가 만든 HTML 파일을 휴대전화에서 볼 때, 화면과 브라우저는 각각 어느 편에 속할까?</p>
+        <details><summary>풀이 보기</summary><p>화면은 하드웨어, 브라우저는 소프트웨어입니다. 브라우저를 실행하는 운영체제와 그 아래 하드웨어가 함께 있어야 HTML이 보입니다.</p><p class="go">다시 보기: <a href="#a01_01">움직이는 그림 1-A 두 세계의 경계</a></p></details></li>
+      <li><p class="qq">저장 공간은 넉넉한데 브라우저 탭을 많이 열면 느려진다. 어느 자원을 먼저 의심하겠는가?</p>
+        <details><summary>풀이 보기</summary><p>메모리(RAM)입니다. 탭마다 지금 쓰는 내용이 펼친 책상인 메모리에 올라옵니다. 서류 보관함(저장장치)이 넉넉해도 책상이 가득 차면 느려집니다. CPU 등 다른 원인도 있을 수 있으니 사용량을 직접 확인합니다.</p><p class="go">다시 보기: <a href="#a01_02">움직이는 그림 1-B 컴퓨터 속 세 장소</a> — 「직접 해 보기」에서 탭을 여러 개 열어 보세요</p></details></li>
+      <li><p class="qq">“앱이 설치는 됐는데 시작하지 않아요”에서 설치와 실행은 어떻게 다른가?</p>
+        <details><summary>풀이 보기</summary><p>설치는 파일과 설정을 저장장치에 준비하는 단계, 실행은 그 파일을 메모리에 올려 CPU가 일하게 하는 단계입니다. 이 문장은 준비는 끝났지만 실행에서 막힌 상황입니다. 설치 성공과 정상 실행은 다릅니다.</p><p class="go">다시 보기: <a href="#a01_03">움직이는 그림 1-C 설치에서 실행까지</a></p></details></li>
+      <li><p class="qq">AI가 “이 코드를 실행하려면 Python이 필요합니다”라고 했다. Python은 기기의 물리적 부품일까?</p>
+        <details><summary>풀이 보기</summary><p>아닙니다. Python은 Python 코드를 실행하기 위해 내 컴퓨터에 설치하는 소프트웨어(실행 환경)입니다. 부품을 사러 갈 일이 아니라 설치하면 됩니다.</p><p class="go">다시 보기: <a href="#a01_01">움직이는 그림 1-A 두 세계의 경계</a></p></details></li>
+      <li><p class="qq">공공서비스 앱 README의 사전 요구사항 여섯 줄 가운데 하드웨어는 몇 개일까?</p>
+        <details><summary>풀이 보기</summary><p>하나도 없습니다. Node.js 18+와 Python 3.11+는 실행 환경(소프트웨어), Supabase · Upstash Redis · Kakao Developers 계정과 Seoul API 키는 인터넷 서비스의 계정과 열쇠입니다. 그래도 앱은 노트북의 CPU · 메모리 · 저장장치 위에서 돕니다.</p><p class="go">다시 보기: <a href="https://github.com/daehyub71/vibecoding-it-basics/blob/main/materials/part1-1.md#3부-실제-저장소-읽기">강의 자료 3부 · 실제 저장소 읽기</a></p></details></li>
+    </ol>
   </section>
   <footer class="note"><p>정확성 메모 — 그림은 개념 모형입니다. 실제로는 드라이버, 캐시, 가상 메모리처럼 생략한 단계가 더 있습니다.</p></footer>
 </div>
