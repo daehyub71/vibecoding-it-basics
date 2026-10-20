@@ -210,7 +210,9 @@ AI가 만든 표는 정답지가 아니라 **검토할 초안**입니다. 이 RE
 
 ### 실습 D 명령
 
-맥은 Command+스페이스로 ‘터미널’을, 윈도우는 PowerShell을 엽니다. 아래 출력은 예시이며 컴퓨터마다 다릅니다.
+맥은 Command+스페이스로 ‘터미널’을, 윈도우는 시작 단추에서 ‘PowerShell’을 검색해 엽니다. 아래 출력은 예시이며 컴퓨터마다 다릅니다.
+
+**맥 · 터미널**
 
 ```text
 $ uname -m
@@ -221,9 +223,20 @@ $ node --version
 v22.20.0
 ```
 
-- `uname -m` — 맥 · 리눅스에서 칩 종류. `arm64`면 애플 칩, `x86_64`면 인텔 칩
-- 윈도우 PowerShell은 `python --version`(또는 `py --version`)과 `node --version`만 확인
-- “command not found”나 “인식할 수 없는 명령”이 나오면 아직 없거나 터미널이 찾지 못한다는 뜻. 맥에서 개발자 도구 설치 창이 뜨면 지금은 취소해도 됩니다
+**윈도우 · PowerShell**
+
+```text
+> $env:PROCESSOR_ARCHITECTURE
+AMD64
+> python --version
+Python 3.13.14
+> node --version
+v22.20.0
+```
+
+- 칩 종류 — 맥 `uname -m`, 윈도우 `$env:PROCESSOR_ARCHITECTURE`. `arm64`/`ARM64`면 ARM 칩(애플 칩 등), `x86_64`/`AMD64`면 인텔 · AMD 칩
+- 윈도우에서 `python`이 안 되면 `py --version`도 해 보기
+- 아직 없을 때 — 맥은 “command not found”, 윈도우는 “인식되지 않습니다”라는 빨간 오류. 윈도우에서 `python`을 쳤는데 Microsoft Store가 열리면 그것도 아직 설치되지 않았다는 뜻입니다. 맥에서 개발자 도구 설치 창이 뜨면 지금은 취소해도 됩니다
 - 확인한 버전을 README의 「Node.js 18+」「Python 3.11+」와 비교
 
 보안 설정을 무턱대고 해제하거나 낯선 설치 파일을 실행하지 마세요. 회사 컴퓨터는 설치 정책부터 확인합니다.
