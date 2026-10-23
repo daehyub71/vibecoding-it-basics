@@ -35,7 +35,7 @@
 
 | 편 | 제목 | 자료 |
 | --- | --- | --- |
-| 2-1 | 프론트엔드 vs 백엔드 | 준비 중 |
+| 2-1 | 프론트엔드 vs 백엔드 | [강의 자료](materials/part2-1.md) · [개념 노트](https://daehyub71.github.io/vibecoding-it-basics/notes/part2-1.html) · [예제 저장소](https://github.com/daehyub71/smart-korean-legal-platform) |
 | 2-2 | 요청(Request) vs 응답(Response) | 준비 중 |
 | 2-3 | GET vs POST — 그리고 HTTP vs HTTPS | 준비 중 |
 | 2-4 | UI vs API — 사람의 창구와 프로그램의 창구 | 준비 중 |
