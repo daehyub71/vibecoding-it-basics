@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ko">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<title>움직이는 개념 노트 5장</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+/* 색 B(모눈 공책) — html 에 data-pal=B 기본
+/* 레이아웃: 가운데 한 기둥(최대 1040px) — 머리말 → 움직이는 그림 카드 → 메모. 카드마다 무대(SVG)·설명·조작. 영상 모드는 kit.js 가 1920×1080 틀로 바꾼다.
+   색: hw = 하드웨어(남색), sw = 소프트웨어(청록), hot = 지금 보는 곳(코랄), alert = 문제 상황. B안은 모눈 공책(잉크 파랑·초록·형광 노랑). */
+:root{
+  --bg:#FAF9F6; --bg2:#EEF1F4; --card:#FFFFFF; --fg:#1B2430; --muted:#5E6A79; --line:#D8DEE6;
+  --hw:#1F3A5F; --hw-soft:#E4EBF4; --sw:#0F7F7C; --sw-soft:#DCEFEC; --hot:#E2603E; --hot-soft:#FCE6DF; --hot-ink:#B4432A;
+  --alert:#C93C2E; --alert-soft:#FBE3DF; --onhw:#FFFFFF; --onsw:#FFFFFF; --onhot:#FFFFFF; --screen-off:#18202B; --finger:#F0BE9B;
+  --grid:transparent;
+  --f-sans:"IBM Plex Sans KR","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+:root[data-pal="B"]{
+  --bg:#F4F5EF; --bg2:#E9ECE3; --card:#FFFFFF; --fg:#20242B; --muted:#5D6470; --line:#D3D8CB;
+  --hw:#2443A0; --hw-soft:#E3E8F7; --sw:#2D7A4E; --sw-soft:#DFEFE4; --hot:#F2B705; --hot-soft:#FDF3CF; --hot-ink:#7E5B00;
+  --alert:#CF3F33; --alert-soft:#FBE2DE; --onhw:#FFFFFF; --onsw:#FFFFFF; --onhot:#20242B; --screen-off:#1D2127; --finger:#EDBF9C; --grid:#E1E5D8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10151C; --bg2:#18202A; --card:#17202B; --fg:#E6EBF1; --muted:#9AA6B5; --line:#2B3542;
+    --hw:#89ABDB; --hw-soft:#1D2A3B; --sw:#4CC1B6; --sw-soft:#12302D; --hot:#F08868; --hot-soft:#3A2119; --hot-ink:#F5A58C;
+    --alert:#F07B6B; --alert-soft:#3A1E1B; --onhw:#0E1520; --onsw:#06201D; --onhot:#1B0E09; --screen-off:#05080C; --finger:#C99A7A; --grid:transparent; color-scheme:dark;
+  }
+  :root[data-pal="B"]:not([data-theme="light"]){
+    --bg:#121519; --bg2:#1A1F25; --card:#1B2026; --fg:#E7EAE3; --muted:#A0A79C; --line:#2E343A;
+    --hw:#94ABF2; --hw-soft:#1F2740; --sw:#6CC593; --sw-soft:#163022; --hot:#F5C842; --hot-soft:#3A3011; --hot-ink:#F5C842;
+    --alert:#F07B6B; --alert-soft:#3A1E1B; --onhw:#0F1428; --onsw:#0A1F12; --onhot:#1A1505; --screen-off:#05070A; --finger:#C99A7A; --grid:#20262C;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10151C; --bg2:#18202A; --card:#17202B; --fg:#E6EBF1; --muted:#9AA6B5; --line:#2B3542;
+  --hw:#89ABDB; --hw-soft:#1D2A3B; --sw:#4CC1B6; --sw-soft:#12302D; --hot:#F08868; --hot-soft:#3A2119; --hot-ink:#F5A58C;
+  --alert:#F07B6B; --alert-soft:#3A1E1B; --onhw:#0E1520; --onsw:#06201D; --onhot:#1B0E09; --screen-off:#05080C; --finger:#C99A7A; --grid:transparent; color-scheme:dark;
+}
+:root[data-theme="dark"][data-pal="B"]{
+  --bg:#121519; --bg2:#1A1F25; --card:#1B2026; --fg:#E7EAE3; --muted:#A0A79C; --line:#2E343A;
+  --hw:#94ABF2; --hw-soft:#1F2740; --sw:#6CC593; --sw-soft:#163022; --hot:#F5C842; --hot-soft:#3A3011; --hot-ink:#F5C842;
+  --alert:#F07B6B; --alert-soft:#3A1E1B; --onhw:#0F1428; --onsw:#0A1F12; --onhot:#1A1505; --screen-off:#05070A; --finger:#C99A7A; --grid:#20262C;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-sans);font-size:16px;line-height:1.65;margin:0;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px}
+.wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+.top{display:flex;flex-direction:column;gap:10px}
+.eyebrow{margin:0;font:600 .82rem/1.5 var(--f-mono);letter-spacing:.04em;color:var(--sw)}
+h1{margin:0;font-size:clamp(1.75rem,4.2vw,2.5rem);line-height:1.2;font-weight:700;text-wrap:balance}
+.lead{margin:0;color:var(--muted);max-width:64ch}
+.pal{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:4px}
+.pal span{font-size:.9rem;color:var(--muted);margin-right:2px}
+.pal button{font:600 .88rem var(--f-sans);border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:6px 14px;cursor:pointer}
+.pal button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+section.anim{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px;outline:none}
+.ahead{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px}
+.fig{font:700 .88rem var(--f-sans);color:var(--hot-ink);letter-spacing:.01em}
+h2{margin:0;font-size:1.4rem;line-height:1.3;text-wrap:balance}
+.where{font-size:.88rem;color:var(--muted)}
+.intro{margin:0;max-width:68ch}
+.tabs{display:flex;gap:4px;background:var(--bg2);border-radius:12px;padding:4px;align-self:flex-start}
+.tab{border:0;background:transparent;font:600 .92rem var(--f-sans);padding:7px 14px;border-radius:9px;color:var(--muted);cursor:pointer}
+.tab[aria-selected="true"]{background:var(--card);color:var(--fg);box-shadow:0 1px 2px rgba(20,30,45,.12)}
+.stage-wrap{overflow-x:auto;border-radius:14px;background-color:var(--bg);border:1px solid var(--line)}
+:root[data-pal="B"] .stage-wrap,:root[data-pal="B"] #vframe{background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+svg.stage{display:block;width:100%;min-width:640px;height:auto}
+.t-sans{font-family:var(--f-sans)} .t-mono{font-family:var(--f-mono)}
+.pane-steps,.pane-sb{display:flex;flex-direction:column;gap:12px}
+.cap{display:flex;flex-direction:column;gap:2px;min-height:4.6em}
+.cap-n{font:600 .85rem var(--f-mono);color:var(--sw)}
+.cap-t{font-size:1.08rem;max-width:70ch}
+.ctl{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.ctl button,.sbb{font:600 .92rem var(--f-sans);border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:10px;padding:8px 14px;cursor:pointer}
+.ctl .b-play{background:var(--hw);border-color:var(--hw);color:var(--onhw);min-width:6.5em}
+.dots{display:flex;flex-wrap:wrap;gap:6px;margin-left:4px}
+.ctl .dot{width:34px;height:34px;padding:0;border-radius:50%;font:600 .84rem var(--f-mono)}
+.ctl .dot[aria-current="step"]{background:var(--hot);border-color:var(--hot);color:var(--onhot)}
+.sb-btns{display:flex;flex-wrap:wrap;gap:8px}
+.sb-status p{margin:.2em 0}
+.sb-status b{font-family:var(--f-mono);font-weight:600}
+.warn{color:var(--alert);font-weight:600}
+button:focus-visible{outline:3px solid var(--hot);outline-offset:2px}
+button:disabled{opacity:.42;cursor:not-allowed}
+.hint{display:none;margin:-6px 0 0;font-size:.84rem;color:var(--muted)}
+@media (max-width:700px){.hint{display:block}}
+.acc{margin:0;font-size:.88rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+.note{color:var(--muted);font-size:.9rem;display:flex;flex-direction:column;gap:6px}
+.note p{margin:0}
+/* ── 영상 모드(1920×1080) ── */
+body.video{padding:0;margin:0;overflow:hidden;width:1920px;height:1080px}
+body.video .wrap{display:none}
+#vframe{position:fixed;left:0;top:0;width:1920px;height:1080px;background-color:var(--bg);color:var(--fg);font-family:var(--f-sans)}
+#vframe .vh{position:absolute;left:110px;right:110px;top:34px;display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--line);padding-bottom:14px}
+#vframe .vsec{color:var(--hw);font-weight:700;font-size:30px}
+#vframe .vlec{color:var(--muted);font-size:24px}
+#vframe .vtitle{position:absolute;left:300px;top:116px;display:flex;align-items:baseline;gap:18px}
+#vframe .vfig{font:700 27px var(--f-sans);color:var(--hot-ink)}
+#vframe .vname{font-size:36px;font-weight:700}
+#vframe .vrail{position:absolute;left:40px;top:196px;width:236px;margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+#vframe .vrail li{display:flex;align-items:center;gap:12px;font-size:21px;color:var(--muted);line-height:1.2}
+#vframe .vrail b{flex:none;width:38px;height:38px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font:600 18px var(--f-mono);color:var(--muted);background:var(--card)}
+#vframe .vrail li.done b{border-color:var(--hw);color:var(--hw)}
+#vframe .vrail li.now{color:var(--fg);font-weight:700}
+#vframe .vrail li.now b{background:var(--hot);border-color:var(--hot);color:var(--onhot)}
+#vframe .vstage{position:absolute;left:300px;top:178px;width:1580px;height:870px}
+section.quiz{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.quiz ol{margin:0;padding-left:1.4em;display:flex;flex-direction:column;gap:14px}
+.quiz li{padding-left:4px}
+.quiz .qq{margin:0 0 6px;font-weight:600}
+.quiz details{border-left:3px solid var(--sw);background:var(--sw-soft);border-radius:0 10px 10px 0;padding:8px 12px}
+.quiz summary{cursor:pointer;font-weight:600;color:var(--sw)}
+.quiz details p{margin:8px 0 0}
+.quiz .go{font-size:.9rem;color:var(--muted)}
+.quiz a{color:var(--hw)}
+@media (prefers-reduced-motion: reduce){ *{scroll-behavior:auto} }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow">바이브코딩 기초 · IT 기본지식 Part1-3 · 03장 네트워크 vs 인터넷 vs 웹</p>
+    <h1>움직이는 개념 노트 5장</h1>
+    <p class="lead">강의 영상에 나오는 움직이는 그림 네 개를 한 단계씩 넘겨 봅니다. 바탕 그림 위에 신호 · 문 번호 · 터미널 글자가 차례로 얹힙니다. 맨 아래에 <a href="#quiz">확인 문제 풀이</a>가 있습니다.</p>
+  </header>
+  <section class="anim" data-anim="a05_01" id="a05_01" tabindex="-1" aria-labelledby="h-a05_01">
+    <div class="ahead"><span class="fig">움직이는 그림 5-A</span><h2 id="h-a05_01">밖으로 나가지 않는 주소</h2><span class="where">본문 5.2</span></div>
+    <p class="intro">localhost로 보낸 요청은 공유기와 인터넷으로 나가지 않고 이 컴퓨터 안에서 되돌아옵니다. 친구의 localhost는 친구 자신입니다.</p>
+    <div class="stage-wrap" style="background:#fff"><svg class="stage" role="img" aria-label="노트북, 리졸버, 루트 서버, .com 서버, 담당 서버"></svg></div>
+    <p class="hint">그림을 옆으로 밀면 오른쪽 부분까지 볼 수 있습니다.</p>
+    <div class="pane-steps">
+      <div class="cap" aria-live="polite"><span class="cap-n"></span><span class="cap-t"></span></div>
+      <div class="ctl">
+        <button type="button" class="b-prev" id="a05_01-prev">◀ 이전</button>
+        <button type="button" class="b-play" id="a05_01-play" aria-pressed="false">▶ 재생</button>
+        <button type="button" class="b-next" id="a05_01-next">다음 ▶</button>
+        <button type="button" class="b-reset" id="a05_01-reset">↺ 처음부터</button>
+        <div class="dots" role="group" aria-label="단계 고르기"></div>
+      </div>
+    </div>
+  </section>
+  <section class="anim" data-anim="a05_02" id="a05_02" tabindex="-1" aria-labelledby="h-a05_02">
+    <div class="ahead"><span class="fig">움직이는 그림 5-B</span><h2 id="h-a05_02">주소의 네 조각과 문 찾기</h2><span class="where">본문 5.4</span></div>
+    <p class="intro">주소를 방식 · 호스트 · 포트 · 경로로 나누고, 어느 문에서 누가 답하는지 봅니다.</p>
+    <div class="stage-wrap" style="background:#fff"><svg class="stage" role="img" aria-label="네임 서버, 사용자 셋, 옛 서버, 새 서버, 시계"></svg></div>
+    <p class="hint">그림을 옆으로 밀면 오른쪽 부분까지 볼 수 있습니다.</p>
+    <div class="pane-steps">
+      <div class="cap" aria-live="polite"><span class="cap-n"></span><span class="cap-t"></span></div>
+      <div class="ctl">
+        <button type="button" class="b-prev" id="a05_02-prev">◀ 이전</button>
+        <button type="button" class="b-play" id="a05_02-play" aria-pressed="false">▶ 재생</button>
+        <button type="button" class="b-next" id="a05_02-next">다음 ▶</button>
+        <button type="button" class="b-reset" id="a05_02-reset">↺ 처음부터</button>
+        <div class="dots" role="group" aria-label="단계 고르기"></div>
+      </div>
+    </div>
+  </section>
+  <section class="anim" data-anim="a05_03" id="a05_03" tabindex="-1" aria-labelledby="h-a05_03">
+    <div class="ahead"><span class="fig">움직이는 그림 5-C</span><h2 id="h-a05_03">한 문에 두 프로그램</h2><span class="where">본문 5.6</span></div>
+    <p class="intro">같은 문에 두 번째 서버가 서려다 막히는 순간과, lsof로 주인을 찾고 다른 문으로 옮기는 해결을 봅니다.</p>
+    <div class="stage-wrap" style="background:#fff"><svg class="stage" role="img" aria-label="집 안 기기 셋, 공유기, 인터넷, 웹사이트, 낯선 컴퓨터"></svg></div>
+    <p class="hint">그림을 옆으로 밀면 오른쪽 부분까지 볼 수 있습니다.</p>
+    <div class="pane-steps">
+      <div class="cap" aria-live="polite"><span class="cap-n"></span><span class="cap-t"></span></div>
+      <div class="ctl">
+        <button type="button" class="b-prev" id="a05_03-prev">◀ 이전</button>
+        <button type="button" class="b-play" id="a05_03-play" aria-pressed="false">▶ 재생</button>
+        <button type="button" class="b-next" id="a05_03-next">다음 ▶</button>
+        <button type="button" class="b-reset" id="a05_03-reset">↺ 처음부터</button>
+        <div class="dots" role="group" aria-label="단계 고르기"></div>
+      </div>
+    </div>
+  </section>
+  <section class="anim" data-anim="a05_04" id="a05_04" tabindex="-1" aria-labelledby="h-a05_04">
+    <div class="ahead"><span class="fig">움직이는 그림 5-D</span><h2 id="h-a05_04">누가 이 문까지 올 수 있나</h2><span class="where">본문 5.7</span></div>
+    <p class="intro">서버를 127.0.0.1에 묶을 때와 0.0.0.0에 묶을 때, 누가 이 문까지 닿는지 비교합니다.</p>
+    <div class="stage-wrap" style="background:#fff"><svg class="stage" role="img" aria-label="주소 띠, 여섯 칸 서랍, 서버, 브라우저, 경고 표지"></svg></div>
+    <p class="hint">그림을 옆으로 밀면 오른쪽 부분까지 볼 수 있습니다.</p>
+    <div class="pane-steps">
+      <div class="cap" aria-live="polite"><span class="cap-n"></span><span class="cap-t"></span></div>
+      <div class="ctl">
+        <button type="button" class="b-prev" id="a05_04-prev">◀ 이전</button>
+        <button type="button" class="b-play" id="a05_04-play" aria-pressed="false">▶ 재생</button>
+        <button type="button" class="b-next" id="a05_04-next">다음 ▶</button>
+        <button type="button" class="b-reset" id="a05_04-reset">↺ 처음부터</button>
+        <div class="dots" role="group" aria-label="단계 고르기"></div>
+      </div>
+    </div>
+  </section>
+  <section class="quiz" id="quiz" aria-labelledby="h-quiz">
+    <div class="ahead"><span class="fig">확인 문제</span><h2 id="h-quiz">영상 속 다섯 문제</h2><span class="where">본문 「확인 문제」</span></div>
+    <p class="intro">먼저 스스로 답해 본 뒤 「풀이 보기」를 눌러 맞춰 보세요. 헷갈리면 「다시 보기」의 움직이는 그림으로 돌아가면 됩니다.</p>
+    <ol>
+      <li><p class="qq">친구가 자기 휴대전화에서 <code>localhost:8000</code>을 열면 내 노트북으로 연결될까?</p>
+        <details><summary>풀이 보기</summary><p>아니다. 친구 기기의 <code>localhost</code>는 친구 기기 자신을 가리킨다.</p><p class="go">다시 보기: <a href="#a05_01">움직이는 그림 5-A 밖으로 나가지 않는 주소</a></p></details></li>
+      <li><p class="qq">서버 파일은 남아 있는데 터미널을 닫은 뒤 페이지가 열리지 않는다. 왜일까?</p>
+        <details><summary>풀이 보기</summary><p>요청을 받던 서버 프로그램이 터미널과 함께 종료되었기 때문이다. 파일이 있다고 문이 열려 있는 것은 아니다.</p><p class="go">다시 보기: <a href="#a05_02">움직이는 그림 5-B 주소의 네 조각과 문 찾기</a></p></details></li>
+      <li><p class="qq"><code>localhost:8000</code>과 <code>localhost:8001</code>의 차이는?</p>
+        <details><summary>풀이 보기</summary><p>같은 컴퓨터의 다른 문(포트)이다. 그 문에 어떤 서비스가 있는지는 실행 상태에 달려 있다.</p><p class="go">다시 보기: <a href="#a05_02">움직이는 그림 5-B 주소의 네 조각과 문 찾기</a></p></details></li>
+      <li><p class="qq">서버를 <code>0.0.0.0</code>으로 켰다. 이것만으로 보안이 충분할까?</p>
+        <details><summary>풀이 보기</summary><p>아니다. 모든 연결 쪽에서 받겠다는 설정일 뿐이다. 방화벽 · 인증 · 내보이는 파일 · 네트워크 정책을 함께 확인해야 한다.</p><p class="go">다시 보기: <a href="#a05_04">움직이는 그림 5-D 누가 이 문까지 올 수 있나</a></p></details></li>
+      <li><p class="qq">예제 앱의 화면이 <code>localhost:5174</code>로 떴다. ETF 목록이 비어 있을 수 있는 까닭은?</p>
+        <details><summary>풀이 보기</summary><p>5173번을 이미 다른 프로그램이 쓰고 있어 Vite가 다음 번호인 5174로 옮겨 켰기 때문이다. 서버의 허용 목록(<code>backend/app/main.py</code> 29행 <code>allow_origins</code>)에는 <code>localhost:5173</code>과 <code>localhost:3000</code>만 있어, 5174에서 열린 화면이 8000번 서버에 보낸 요청의 응답을 브라우저가 막는다(CORS). 해결은 5173번의 주인을 확인해 문을 비우거나, 허용 목록에 5174를 함께 적는 것이다.</p><p class="go">다시 보기: <a href="#a05_03">움직이는 그림 5-C 한 문에 두 프로그램</a></p></details></li>
+    </ol>
+  </section>
+  <footer class="note"><p>정확성 메모 — 「포트 하나에 프로그램 하나」와 0.0.0.0 은 IPv4 기준으로 단순화했습니다. 실제로는 주소 · 프로토콜 · 소켓 옵션 조합에 따라 다를 수 있습니다.</p></footer>
+</div>
+<script>document.documentElement.setAttribute("data-pal", "B");</script>
+<script src="kit.js"></script>
+<script src="a05_defs.js"></script>
+<script>IT.start();</script>
