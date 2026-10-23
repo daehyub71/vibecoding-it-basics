@@ -204,7 +204,7 @@ section.quiz{background:var(--card);border:1px solid var(--line);border-radius:1
       <li><p class="qq"><code>jpg</code> 이름표를 <code>png</code>로 바꾸면 그림 형식도 바뀔까?</p>
         <details><summary>풀이 보기</summary><p>아니다. 이름표만 바뀐다. 실제 형식을 바꾸려면 따로 변환해야 한다.</p></details></li>
       <li><p class="qq"><code>pipeline</code> 안에서 <code>cd web</code>이 실패했다. 이유와 고친 명령은?</p>
-        <details><summary>풀이 보기</summary><p><code>web</code>은 <code>pipeline</code> 안이 아니라 옆에 있다. README처럼 <code>cd ../web</code>으로 한 칸 나갔다가 들어가거나, 새 터미널을 루트에서 열고 <code>cd web</code>을 친다.</p><p class="go">다시 보기: <a href="#a02_03">움직이는 그림 2-C 같은 명령, 다른 출발점</a></p></details></li>
+        <details><summary>풀이 보기</summary><p><code>web</code>은 <code>pipeline</code> 안이 아니라 옆에 있다. README처럼 <code>cd ../web</code>으로 한 칸 나갔다가 들어가거나, 새 PowerShell(맥은 터미널) 창을 루트에서 열고 <code>cd web</code>을 친다.</p><p class="go">다시 보기: <a href="#a02_03">움직이는 그림 2-C 같은 명령, 다른 출발점</a></p></details></li>
       <li><p class="qq">빌드 실패를 고친 커밋 <code>97cf491</code>이 바꾼 파일은 화면 <code>page.tsx</code>였을까?</p>
         <details><summary>풀이 보기</summary><p>아니다. 바뀐 파일은 <code>web/src/lib/supabase.ts</code>와 <code>web/src/lib/queries.ts</code>(그리고 새 시험 파일 <code>supabase.test.ts</code>)로, 화면을 그리는 <code>web/src/app/</code>이 아니라 데이터베이스 연결을 만드는 <code>lib</code> 폴더에 있었다.</p></details></li>
     </ol>

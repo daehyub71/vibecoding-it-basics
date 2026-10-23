@@ -83,7 +83,7 @@
     bx(D.p05_03, [[4, "셔터 내린 가게", C.coral], [1, "파일만 있음", C.coral], [5, "셔터 올리기", C.teal], [2, "서버 실행", C.teal], [6, "손님을 맞는 가게", C.blue], [3, "요청에 응답", C.blue]]),
     [{ tag: "파일만 있다", show: [1, 2], hl: [0, 20, 560, 900] }, { tag: "문을 연다", show: [3, 4], hl: [560, 20, 560, 900] }, { tag: "손님을 받는다", show: [5, 6], hl: [1120, 20, 552, 900] }]);
   figAnim("p05_04", "그림 5-4", "서로 같은 창구를 열려고 하면", "5.6 포트 충돌", "p05_04.jpg",
-    bx(D.p05_04, [[1, "8000번 문", C.coral], [3, "먼저 선 프로그램", C.teal], [4, "나중에 온 프로그램", C.blue], [5, "이미 사용 중", C.coral], [2, "다른 문(8001)으로", C.teal], [6, "누가 쓰는지 확인(lsof)", C.blue]]),
+    bx(D.p05_04, [[1, "8000번 문", C.coral], [3, "먼저 선 프로그램", C.teal], [4, "나중에 온 프로그램", C.blue], [5, "이미 사용 중", C.coral], [2, "다른 문(8001)으로", C.teal], [6, "누가 쓰는지 확인(netstat)", C.blue]]),
     [{ tag: "이미 앉아 있다", show: [1, 2], hl: [0, 40, 640, 880] }, { tag: "같은 문 → 막힘", show: [3, 4], hl: [300, 200, 600, 700] }, { tag: "옮기거나 확인", show: [5, 6], hl: [1180, 20, 492, 900] }]);
   figAnim("p05_05", "그림 5-5", "로컬 앱을 다른 기기에서 볼 때", "5.8 같은 와이파이", "p05_05.jpg",
     bx(D.p05_05, [[4, "노트북에서 켠 앱", C.blue], [1, "같은 와이파이", C.teal], [2, "localhost로는 실패", C.coral], [5, "사설 IP:포트로 접속", C.teal], [3, "방화벽 허용", C.coral]]),
@@ -162,7 +162,7 @@
   const T1 = [520, 108, 290, 110], T2 = [888, 108, 312, 110];
   IT.define({
     id: "a05_03", fig: "움직이는 그림 5-C", title: "한 문에 두 프로그램", sec: "5.6 포트 충돌", view: [W, H], rest: 6, blank: { k: -1 },
-    steps: ["서버 A가 8000에", "서버 B가 막힘", "Address already in use", "lsof로 주인 찾기", "B를 8001로", "A를 끄고 B를 8000에", "Vite는 5174로"].map((tag, i) => ({ tag, set: { k: i }, dur: 1.4 })),
+    steps: ["서버 A가 8000에", "서버 B가 막힘", "Address already in use", "netstat으로 주인 찾기", "B를 8001로", "A를 끄고 B를 8000에", "Vite는 5174로"].map((tag, i) => ({ tag, set: { k: i }, dur: 1.4 })),
     layout(s, t) {
       const o = {}, k = Math.max(0, s.k), on = s.k >= 0 ? 1 : 0; img(o, "p05_a03.jpg");
       const vite = k === 6;
@@ -172,14 +172,14 @@
       lab(o, "d3", [1014, 279, 202, 44], vite ? "5175" : "8002번 문", on, "#5D6470");
       lab(o, "a", [434, 691, 201, 45], k === 5 ? "서버 A · 꺼짐" : vite ? "먼저 온 프로그램" : "서버 A", on, k === 5 ? "#CF3F33" : C.teal);
       lab(o, "b", [46, 817, 202, 45], vite ? "Vite" : "서버 B", k >= 1 ? 1 : 0, C.coral);
-      lab(o, "g", [1385, 800, 233, 46], "lsof (관리인)", k === 3 ? 1 : 0, C.blue);
+      lab(o, "g", [1385, 800, 233, 46], "netstat (관리인)", k === 3 ? 1 : 0, C.blue);
       lab(o, "bd", [1356, 326, 209, 45], "명부", k === 3 ? 1 : 0, C.blue);
       const t1 = vite ? "" : k === 5 ? "^C  서버 A 종료" : "Uvicorn running on :8000";
-      const t2 = vite ? "Port 5173 is in use, trying another one…" : k === 1 ? "$ … 8000" : k >= 2 && k <= 3 ? "Address already in use" : k === 4 ? "running on :8001" : k === 5 ? "running on :8000" : "";
+      const t2 = vite ? "Port 5173 is in use, trying another one…" : k === 1 ? "PS> … 8000" : k >= 2 && k <= 3 ? "Address already in use" : k === 4 ? "running on :8001" : k === 5 ? "running on :8000" : "";
       o.t1 = { type: "text", x: T1[0] + 14, y: T1[1] + 64, text: t1, size: 17, weight: 600, font: "mono", fill: "#9ED39B", op: on, z: 6 };
       o.t2 = { type: "text", x: T2[0] + 14, y: T2[1] + 64, text: t2, size: vite ? 13 : 17, weight: 600, font: "mono", fill: k >= 2 && k <= 3 ? "#FF8A7A" : "#9ED39B", op: on, z: 6 };
       o.no = { type: "text", x: 518, y: 760, text: "⛔", size: 90, anchor: "middle", op: k === 1 || k === 2 ? 1 : 0, z: 8 };
-      txtBox(o, "row", [1290, 420, 360, 44], "Python · 24931 · 127.0.0.1:8000 (LISTEN)", k === 3 ? 1 : 0, C.blue, { mono: true });
+      txtBox(o, "row", [1290, 420, 360, 44], "TCP 127.0.0.1:8000 LISTENING 24931", k === 3 ? 1 : 0, C.blue, { mono: true });
       route(o, "mv", [[150, 760], [836, 650]], k === 4, C.coral);
       route(o, "mv2", [[150, 760], [518, 640]], k === 5, C.teal);
       route(o, "mv3", [[150, 760], [836, 650]], vite, C.coral, "10 8");

@@ -105,14 +105,14 @@
     flab: [[1045, 65, 175, 50], [1119, 164, 175, 50], [1190, 266, 175, 50], [1263, 367, 176, 50], [1333, 469, 174, 50], [1406, 573, 176, 50], [1472, 674, 170, 50], [1512, 776, 130, 50]],
     mac: [1399, 39, 118, 52], win: [1530, 42, 112, 46],
   };
-  const NAMES = ["/", "Users", "사용자이름", "projects", "utube-…-tracer", "web", "src", "BoardCard.tsx"];
+  const NAMES = ["C:", "Users", "사용자이름", "projects", "utube-…-tracer", "web", "src", "BoardCard.tsx"];
   const MACP = "/Users/사용자이름/projects/utube-trend-tracer/web/src/components/BoardCard.tsx";
   const WINP = "C:\\Users\\사용자이름\\projects\\utube-trend-tracer\\web\\src\\components\\BoardCard.tsx";
   IT.define({
     id: "a02_01", fig: "움직이는 그림 2-A", title: "서랍장에서 폴더 트리로", sec: "2.1 서랍장에서 시작하는 파일 탐험", view: [W, H], rest: 6,
     blank: { k: -1 },
-    steps: [{ tag: "안방", set: { k: 0 } }, { tag: "서랍장 · 칸 · 상자", set: { k: 1 }, dur: 1.4 }, { tag: "폴더와 파일", set: { k: 2 }, dur: 1.4 }, { tag: "/ Users 사용자이름 projects", set: { k: 3 }, dur: 1.4 },
-      { tag: "BoardCard.tsx 까지", set: { k: 4 }, dur: 1.4 }, { tag: "확장자 tsx", set: { k: 5 } }, { tag: "윈도우 표기", set: { k: 6 } }],
+    steps: [{ tag: "안방", set: { k: 0 } }, { tag: "서랍장 · 칸 · 상자", set: { k: 1 }, dur: 1.4 }, { tag: "폴더와 파일", set: { k: 2 }, dur: 1.4 }, { tag: "C: Users 사용자이름 projects", set: { k: 3 }, dur: 1.4 },
+      { tag: "BoardCard.tsx 까지", set: { k: 4 }, dur: 1.4 }, { tag: "확장자 tsx", set: { k: 5 } }, { tag: "맥 표기", set: { k: 6 } }],
     layout(s, t) {
       const o = {}, k = s.k; img(o, "p02_a01.jpg");
       const PL = ["집 = 저장장치", "안방", "서랍장 · 둘째 칸", "파란 상자 · 여권"];
@@ -127,16 +127,16 @@
       const upto = k >= 4 ? 7 : k >= 3 ? 3 : -1;
       NAMES.forEach((nm, i) => {
         const on = k >= 2 ? 1 : 0, lit = i <= upto;
-        lab(o, "f" + i, A1.flab[i], i === 7 && k >= 5 ? "BoardCard . tsx" : nm, on, lit ? C.coral : C.blue, { lag: i * 0.08 });
+        lab(o, "f" + i, A1.flab[i], i === 7 && k >= 5 ? "BoardCard . tsx" : i === 0 && k === 6 ? "/" : nm, on, lit ? C.coral : C.blue, { lag: i * 0.08 });
         if (i === 7) o["ext"] = { type: "rect", x: A1.flab[7][0] + A1.flab[7][2] - 50, y: A1.flab[7][1] + 8, w: 44, h: 34, rx: 10, fill: "none", stroke: "hot", sw: 4, op: k >= 5 ? 1 : 0, z: 5 };
         const [cx, cy] = A1.icon[i];
         o["dot" + i] = { type: "circle", cx: cx - 40, cy, r: 9, fill: C.coral, op: lit ? 1 : 0, z: 5, lag: i * 0.12 };
       });
       // 맥 / 윈도우 단추
-      lab(o, "mac", A1.mac, "맥", k >= 2 ? 1 : 0, k === 6 ? "#8A93A3" : C.coral); lab(o, "win", A1.win, "윈도우", k >= 2 ? 1 : 0, k === 6 ? C.teal : "#8A93A3");
+      lab(o, "mac", A1.mac, "윈도우", k >= 2 ? 1 : 0, k === 6 ? "#8A93A3" : C.coral); lab(o, "win", A1.win, "맥", k >= 2 ? 1 : 0, k === 6 ? C.teal : "#8A93A3");
       // 경로 글줄
-      const txt = k <= 0 ? "안방" : k === 1 ? "안방 → 서랍장 → 둘째 칸 → 파란 상자 → 여권" : k === 2 ? "폴더 = 방 · 서랍 · 상자  /  파일 = 여권" : k === 3 ? "/Users/사용자이름/projects" : k === 6 ? WINP : MACP;
-      pathCard(o, "pc", k <= 2 ? 878 : 630, k <= 2 ? 700 : 660, k <= 2 ? 430 : 680, k <= 2 ? "경로 = 찾아가는 말" : k === 6 ? "윈도우 · C: 에서 시작, \\ 로 들어간다" : "맥 · / 에서 시작, / 하나 = 한 칸 안으로", txt, k >= 0 ? 1 : 0, k === 6 ? C.teal : C.coral, k <= 2 ? 22 : 25);
+      const txt = k <= 0 ? "안방" : k === 1 ? "안방 → 서랍장 → 둘째 칸 → 파란 상자 → 여권" : k === 2 ? "폴더 = 방 · 서랍 · 상자  /  파일 = 여권" : k === 3 ? "C:\\Users\\사용자이름\\projects" : k === 6 ? MACP : WINP;
+      pathCard(o, "pc", k <= 2 ? 878 : 630, k <= 2 ? 700 : 660, k <= 2 ? 430 : 680, k <= 2 ? "경로 = 찾아가는 말" : k === 6 ? "맥 · / 에서 시작, / 로 들어간다" : "윈도우 · C: 에서 시작, \\ 하나 = 한 칸 안으로", txt, k >= 0 ? 1 : 0, k === 6 ? C.teal : C.coral, k <= 2 ? 22 : 25);
       if (k === 5) note(o, "ex", 1240, 880, "점 뒤 tsx = 확장자", 1, C.coral);
       return o;
     },
@@ -152,7 +152,7 @@
     Kakao: ["BoardCard.tsx", [1244, 648], [1306, 619, 107, 49], "map"], Marker: ["BoardCard.test.tsx", [1475, 648], [1540, 619, 105, 49], "map"],
   };
   const LOW = ["api", "main", "App", "hooks", "useLoc", "Kakao", "Marker"];
-  const ABS = "/Users/사용자이름/projects/utube-trend-tracer";
+  const ABS = "C:/Users/사용자이름/projects/utube-trend-tracer";
   const ST2 = [
     { flag: "root", star: null, abs: "", rel: "" },
     { flag: "root", star: "App", abs: ABS + "/web/src/app/page.tsx", rel: "web/src/app/page.tsx" },
@@ -162,6 +162,7 @@
     { flag: "backend", star: null, abs: ABS + "/pipeline", rel: "./app/page.tsx  →  찾을 수 없음", miss: true },
     { flag: "src", star: "Kakao", abs: ABS + "/web/src/components/BoardCard.tsx", rel: "@/components/BoardCard", note: "@ = web/src 에 붙인 별명 (tsconfig.json) · page.tsx 가 이렇게 부른다" },
   ];
+  ST2.forEach((s) => { s.abs = s.abs.replace(/\//g, "\\"); });   // 윈도우 표기(2026-10-23: 윈도우 먼저)
   IT.define({
     id: "a02_02", fig: "움직이는 그림 2-B", title: "지금 서 있는 곳이 바뀌면", sec: "2.4 절대경로 vs 상대경로", view: [W, H], rest: 6,
     blank: { k: -1 },
@@ -206,14 +207,14 @@
   const DR = { root: [258, 222, 405, 212], backend: [105, 432, 342, 248], frontend: [475, 432, 345, 248] };
   const FILES = { root: [["README.md", 460, 405]], backend: [["requirements.txt", 276, 555], ["scripts/run_collect.py", 276, 590]], frontend: [["package.json", 648, 555], ["src/", 648, 590]] };
   const STEPS3 = [
-    { t1: ["$ pwd", ".../utube-trend-tracer"], at1: "root", look: null },
-    { t1: ["$ cd pipeline", "$ pwd", ".../pipeline"], at1: "backend" },
-    { t1: ["$ pip install -r requirements.txt", "✓ requirements.txt 를 찾았다"], at1: "backend", look: ["backend", 0, true] },
-    { t1: ["$ python -m scripts.run_collect", "✓ scripts/run_collect.py · 수집 중 …"], at1: "backend", look: ["backend", 1, true], busy: true },
-    { t1: ["$ cd web", "cd: no such file or directory: web"], at1: "backend", look: ["backend", -1, false], busy: true, err1: true },
-    { t1: ["(수집 중 …)"], at1: "backend", busy: true, t2: ["$ cd web", "$ npm run dev", "✓ package.json · 화면 서버 켜짐"], at2: "frontend", look: ["frontend", 0, true] },
-    { t1: ["(수집 중 …)"], at1: "backend", busy: true, t2: ["$ npm run dev   (루트에서)", "npm error Could not read package.json"], at2: "root", look: ["root", -1, false], err2: true },
-    { t1: ["$ cd ../web", "$ pwd", ".../web"], at1: "frontend", t2: ["(화면 서버 켜짐)"], at2: "frontend", hop: true },
+    { t1: ["PS> pwd", "C:\\…\\utube-trend-tracer"], at1: "root", look: null },
+    { t1: ["PS> cd pipeline", "PS> pwd", "C:\\…\\pipeline"], at1: "backend" },
+    { t1: ["PS> pip install -r requirements.txt", "✓ requirements.txt 를 찾았다"], at1: "backend", look: ["backend", 0, true] },
+    { t1: ["PS> python -m scripts.run_collect", "✓ scripts/run_collect.py · 수집 중 …"], at1: "backend", look: ["backend", 1, true], busy: true },
+    { t1: ["PS> cd web", "cd : 경로를 찾을 수 없습니다(…\\pipeline\\web)"], at1: "backend", look: ["backend", -1, false], busy: true, err1: true },
+    { t1: ["(수집 중 …)"], at1: "backend", busy: true, t2: ["PS> cd web", "PS> npm run dev", "✓ package.json · 화면 서버 켜짐"], at2: "frontend", look: ["frontend", 0, true] },
+    { t1: ["(수집 중 …)"], at1: "backend", busy: true, t2: ["PS> npm run dev   (루트에서)", "npm error Could not read package.json"], at2: "root", look: ["root", -1, false], err2: true },
+    { t1: ["PS> cd ../web", "PS> pwd", "C:\\…\\web"], at1: "frontend", t2: ["(화면 서버 켜짐)"], at2: "frontend", hop: true },
   ];
   IT.define({
     id: "a02_03", fig: "움직이는 그림 2-C", title: "같은 명령, 다른 출발점", sec: "2.6 프로젝트 루트", view: [W, H], rest: 7,

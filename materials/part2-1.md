@@ -333,7 +333,7 @@ smart-korean-legal-platform/
 | A. 화면에만 있는 메모 | 5분 | 메모 두 개를 추가하고 새로고침 → 사라짐 |
 | B. 브라우저에 남기기 | 5분 | 「브라우저에 저장」 후 새로고침 → 남음 · 다른 브라우저 → 빔 |
 | C. 저장된 값 들여다보기 | 3분 | 개발자 도구 Application 탭에서 값을 직접 고쳐 보기 |
-| D. 계약 불일치 찾기 | 5분 | 터미널에서 예제 저장소의 화면 · 서버 파일을 한 줄씩 대조 |
+| D. 계약 불일치 찾기 | 5분 | PowerShell(맥은 터미널)에서 예제 저장소의 화면 · 서버 파일을 한 줄씩 대조 |
 
 ### 실습 A — 화면에만 있는 메모
 
@@ -374,15 +374,6 @@ smart-korean-legal-platform/
 </script>
 ```
 
-**맥 · 터미널**
-
-```text
-$ mkdir ~/memo-practice
-$ cd ~/memo-practice
-(편집기로 memo.html 저장)
-$ open memo.html
-```
-
 **윈도우 · PowerShell**
 
 ```text
@@ -392,32 +383,30 @@ $ open memo.html
 > start memo.html
 ```
 
+**맥 · 터미널**
+
+```text
+$ mkdir ~/memo-practice
+$ cd ~/memo-practice
+(편집기로 memo.html 저장)
+$ open memo.html
+```
+
 메모 두 개를 「추가」한 뒤 새로고침하면 메모가 사라집니다. 메모가 그 탭의 자바스크립트 변수, 곧 **탭의 메모리에만** 있었기 때문입니다. 감시 목록이 서버의 메모리에만 있다가 재시작에 사라지는 것과 같은 모양입니다.
 
 ### 실습 B — 브라우저에 남기기
 
-이번에는 메모를 추가한 뒤 「브라우저에 저장」을 누르고 새로고침합니다. 메모가 남아 있습니다. 그런데 같은 파일을 **다른 브라우저나 시크릿 창**으로 열면 목록이 비어 있습니다. 저장한 곳이 그 브라우저의 **localStorage**(브라우저 안의 작은 보관함)이기 때문입니다. 서버까지 가지 않았으니 다른 기기에서도 보이지 않습니다. 파일로 연 페이지에서 저장이 막히는 브라우저라면 5장의 연습 서버(`python3 -m http.server 8000 --bind 127.0.0.1`, 윈도우는 `python`)로 열어 `localhost:8000/memo.html`에서 합니다.
+이번에는 메모를 추가한 뒤 「브라우저에 저장」을 누르고 새로고침합니다. 메모가 남아 있습니다. 그런데 같은 파일을 **다른 브라우저나 시크릿 창**으로 열면 목록이 비어 있습니다. 저장한 곳이 그 브라우저의 **localStorage**(브라우저 안의 작은 보관함)이기 때문입니다. 서버까지 가지 않았으니 다른 기기에서도 보이지 않습니다. 파일로 연 페이지에서 저장이 막히는 브라우저라면 5장의 연습 서버(`python -m http.server 8000 --bind 127.0.0.1`, 맥은 `python3`)로 열어 `localhost:8000/memo.html`에서 합니다.
 
 ### 실습 C — 저장된 값 들여다보기
 
-개발자 도구를 엽니다. 맥은 **Option+Command+I**, 윈도우는 **F12**입니다. 크롬의 **Application**(애플리케이션) 탭 → 왼쪽 Local Storage에서 페이지 주소를 고르면 `memo-practice`와 저장된 값이 보입니다. 값을 두 번 눌러 `["개발자 도구에서 고친 메모"]`로 바꾸고 새로고침하면 화면에 고친 메모가 나옵니다.
+개발자 도구를 엽니다. 윈도우는 **F12**, 맥은 **Option+Command+I**입니다. 크롬의 **Application**(애플리케이션) 탭 → 왼쪽 Local Storage에서 페이지 주소를 고르면 `memo-practice`와 저장된 값이 보입니다. 값을 두 번 눌러 `["개발자 도구에서 고친 메모"]`로 바꾸고 새로고침하면 화면에 고친 메모가 나옵니다.
 
 브라우저에 있는 값은 **사용자가 보고 바꿀 수 있습니다.** 중요한 검사를 서버에서 다시 하는 이유입니다(6부).
 
 ### 실습 D — 계약 불일치 찾기
 
 예제 저장소의 확인 기준 커밋에서 화면 쪽 등록 요청과 서버 쪽 창구 · 이름을 한 줄씩 꺼내 봅니다. 앱을 켜지 않고 파일만 읽습니다. 아래 출력은 예입니다.
-
-**맥 · 터미널**
-
-```text
-$ B=https://raw.githubusercontent.com/daehyub71/smart-korean-legal-platform/f8a02d7
-$ curl -s $B/frontend/src/app/tracker/page.tsx | grep -n -e 'tracker/register' -e 'name: newLawName'
-122:      await apiFetch<WatchedLaw>("/api/tracker/register", {
-125:          name: newLawName.trim(),
-$ curl -s $B/backend/app/modules/reg_tracker/router.py | grep -n '@router.post'
-35:@router.post("/watch", response_model=WatchResponse)
-```
 
 **윈도우 · PowerShell**
 
@@ -427,6 +416,17 @@ $ curl -s $B/backend/app/modules/reg_tracker/router.py | grep -n '@router.post'
 122:      await apiFetch<WatchedLaw>("/api/tracker/register", {
 125:          name: newLawName.trim(),
 > curl.exe -s "$B/backend/app/modules/reg_tracker/router.py" | findstr /n /c:"@router.post"
+35:@router.post("/watch", response_model=WatchResponse)
+```
+
+**맥 · 터미널**
+
+```text
+$ B=https://raw.githubusercontent.com/daehyub71/smart-korean-legal-platform/f8a02d7
+$ curl -s $B/frontend/src/app/tracker/page.tsx | grep -n -e 'tracker/register' -e 'name: newLawName'
+122:      await apiFetch<WatchedLaw>("/api/tracker/register", {
+125:          name: newLawName.trim(),
+$ curl -s $B/backend/app/modules/reg_tracker/router.py | grep -n '@router.post'
 35:@router.post("/watch", response_model=WatchResponse)
 ```
 
@@ -483,5 +483,5 @@ Part2-2 요청 vs 응답. 프론트엔드와 백엔드 사이를 오가는 것�
 
 - [daehyub71/smart-korean-legal-platform](https://github.com/daehyub71/smart-korean-legal-platform) 커밋 `f8a02d7`(2026-10-23 확인) — `README.md`의 「Tech Stack」 · 「Start Services」 · 「Open」 · 「Deployment」, 루트 `.env.example`, `frontend/package.json`(`next` 16.2.2) · `src/lib/api.ts`(5행) · `src/app/dev-check/page.tsx`(35~52 · 73행) · `src/app/tracker/page.tsx`(19~23 · 122~127 · 136행) · `src/app/counsel/page.tsx`(215행), `backend/app/main.py`(17~23행 CORS) · `app/core/config.py`(`env_file`) · `app/core/database.py`(39행 `watched_laws`) · `app/modules/reg_tracker/router.py`(35행) · `schemas.py`(15행) · `service.py`(28~29행) · `app/modules/dev_checker/schemas.py`(9 · 18~20행) · `app/modules/counsel/schemas.py`(9행), `kordoc-service/src/index.ts`(7행), `docs/PLAN.md`(297행) · `docs/SPEC.md`(WatchedLaw)
 - 배포 여부: 저장소 설정과 README 어디에도 배포 주소가 없어 “배포되지 않음”으로 보았습니다.
-- 앱 전체를 실행하지는 않았습니다. `/register` 요청이 거절되는 것과 목록 이름 칸이 비는 것은 화면 · 서버 코드를 대조해 판단했으며, 거절될 때의 정확한 상태 코드는 다루지 않았습니다. 실습 D의 출력은 맥에서 실행한 결과이고, 윈도우 출력은 형식을 보여 주는 예입니다. 메모 실습은 크롬 기준입니다.
+- 앱 전체를 실행하지는 않았습니다. `/register` 요청이 거절되는 것과 목록 이름 칸이 비는 것은 화면 · 서버 코드를 대조해 판단했으며, 거절될 때의 정확한 상태 코드는 다루지 않았습니다. 실습 D의 윈도우 출력은 형식을 보여 주는 예이고, 맥 출력은 맥에서 실행한 결과입니다. 메모 실습은 크롬 기준입니다.
 - 학습용 단순화: 움직이는 그림의 저장 흐름은 인증 · 트랜잭션 · 캐시를 생략했고, Next.js가 화면 일부를 서버에서 만드는 방식은 「주로」로만 짚었습니다.

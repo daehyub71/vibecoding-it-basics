@@ -39,7 +39,7 @@
 
 ### 서랍장에서 폴더 트리로 (움직이는 그림 2-A)
 
-집 → 방 → 서랍장 → 칸 → 상자로 좁혀 가던 그림이 폴더 트리로 바뀌고, 한 칸 들어갈 때마다 경로가 한 마디씩 길어집니다. 맥에서는 맨 앞의 `/`가 출발점이고, 마지막 마디가 파일 이름, 점 뒤의 `tsx`가 확장자입니다. 윈도우에서는 드라이브 이름 `C:`로 시작하고 빗금 방향이 반대(`\`)입니다. → [움직이는 개념 노트에서 폴더를 눌러 경로 만들어 보기](https://daehyub71.github.io/vibecoding-it-basics/notes/part1-2.html)
+집 → 방 → 서랍장 → 칸 → 상자로 좁혀 가던 그림이 폴더 트리로 바뀌고, 한 칸 들어갈 때마다 경로가 한 마디씩 길어집니다. 윈도우에서는 드라이브 이름 `C:`가 출발점이고 마디 사이를 역빗금(`\`)으로 나눕니다. 마지막 마디가 파일 이름, 점 뒤의 `tsx`가 확장자입니다. 맥에서는 맨 앞의 `/`가 출발점이고 빗금 방향이 반대(`/`)입니다. → [움직이는 개념 노트에서 폴더를 눌러 경로 만들어 보기](https://daehyub71.github.io/vibecoding-it-basics/notes/part1-2.html)
 
 ### 파일은 이름과 확장자를 가진다
 
@@ -49,7 +49,7 @@
 
 ![그림 2-2. 이름표를 바꿔도 내용물은 그대로](img/part1-2/p02_02.jpg)
 
-맥과 리눅스의 `file` 명령은 이름표가 아니라 내용물을 읽고 답합니다(출력의 세부는 사진마다 다릅니다. 윈도우에는 기본으로 없는 명령입니다).
+윈도우에는 이름표가 아니라 내용물을 읽고 답하는 명령이 기본으로 들어 있지 않습니다. 맥과 리눅스에는 `file` 명령이 있어 이렇게 답합니다(출력의 세부는 사진마다 다릅니다).
 
 ```text
 $ file photo.pdf
@@ -66,10 +66,10 @@ photo.pdf: JPEG image data, JFIF standard 1.01, … 1200x800
 | `.env` | 비밀 값이 담길 수 있는 파일 | 견본 `.env.example`만 올라가 있다(진짜는 올리지 않음) |
 | `README.md` | 사람이 읽는 설명서 | 세 개 — 루트 `README.md` · `README_KO.md` · `web/README.md` |
 
-파일 이름에는 확장자가 없는 것도, `.gitignore`처럼 점으로 시작하는 것도, `.env.example`처럼 점이 두 개인 것도 있습니다. ‘점 뒤에 있으면 무조건 확장자’라고 외우면 오해하기 쉽습니다. 점으로 시작하는 이름은 맥과 리눅스에서 **숨김 파일**이라 Finder에 기본으로 보이지 않습니다.
+파일 이름에는 확장자가 없는 것도, `.gitignore`처럼 점으로 시작하는 것도, `.env.example`처럼 점이 두 개인 것도 있습니다. ‘점 뒤에 있으면 무조건 확장자’라고 외우면 오해하기 쉽습니다. 윈도우는 이름이 아니라 ‘숨김’ 속성으로 파일을 숨기고, 맥과 리눅스에서는 점으로 시작하는 이름이 **숨김 파일**이라 Finder에 기본으로 보이지 않습니다.
 
+- 윈도우 파일 탐색기 — 「보기」 메뉴에서 「숨긴 항목」을 켜면 보임
 - 맥 Finder — Command, Shift, 마침표(`⌘⇧.`)를 함께 누르면 나타남
-- 윈도우 파일 탐색기 — 「보기」 메뉴에서 「숨긴 항목」을 켜면 보임(윈도우는 이름이 아니라 ‘숨김’ 속성으로 숨긴다)
 
 이름 규칙도 **사람의 약속**입니다. “최종”, “최종2”, “정말최종”처럼 이름을 짓기 시작하면 사람도 AI도 엉뚱한 파일을 집을 수 있습니다. 이 저장소의 `pipeline/scripts/`는 `run_collect.py`, `run_scoring.py`, `sync_config.py`, `sync_seeds.py`처럼 ‘동작_대상’ 규칙으로 이름을 붙여, 열어 보지 않고도 무슨 일을 하는지 짐작할 수 있습니다.
 
@@ -157,11 +157,11 @@ AI가 돌려준 목록은 **경로마다 실제로 있는지** 맞춰 봅니다.
 저장소를 내 컴퓨터의 `projects` 폴더에 받아 두었다면 첫 화면 파일 `page.tsx`의 절대경로는 이렇습니다(`사용자이름`은 예).
 
 ```text
-맥:     /Users/사용자이름/projects/utube-trend-tracer/web/src/app/page.tsx
 윈도우: C:\Users\사용자이름\projects\utube-trend-tracer\web\src\app\page.tsx
+맥:     /Users/사용자이름/projects/utube-trend-tracer/web/src/app/page.tsx
 ```
 
-맥과 리눅스의 절대경로는 파일 시스템 전체의 출발점인 `/`(루트)에서, 윈도우는 `C:` 같은 드라이브 이름에서 시작합니다. 상대경로는 출발점이 필요합니다.
+윈도우의 절대경로는 `C:` 같은 드라이브 이름에서, 맥과 리눅스는 파일 시스템 전체의 출발점인 `/`(루트)에서 시작합니다. 상대경로는 출발점이 필요합니다.
 
 | 지금 서 있는 곳 | 같은 파일의 상대경로 |
 | --- | --- |
@@ -185,16 +185,16 @@ AI가 돌려준 목록은 **경로마다 실제로 있는지** 맞춰 봅니다.
 
 | 질문 | 절대경로 | 상대경로 |
 | --- | --- | --- |
-| 어디서 시작하나? | 파일 시스템의 기준 위치(`/` 또는 `C:`) | 현재 작업 · 해석 기준 위치 |
+| 어디서 시작하나? | 파일 시스템의 기준 위치(`C:` 또는 `/`) | 현재 작업 · 해석 기준 위치 |
 | 다른 컴퓨터로 옮기면? | 기존 주소가 맞지 않을 수 있음 | 폴더 구조를 유지하면 그대로 쓸 수 있음 |
 | 장점 | 시작 위치와 관계없이 명확함 | 프로젝트를 통째로 옮겨도 재사용 |
 | 주의 | 내 PC의 사용자 폴더에 묶임 | 기준 위치를 잘못 알면 엉뚱한 파일을 찾음 |
 
-이 저장소의 「시작하기」 안내는 절대경로 없이 상대경로만 써서, 누구의 컴퓨터에서든 같은 줄로 따라 할 수 있습니다. 반대로 AI가 만든 코드에 `/Users/…`나 `C:\Users\…`로 시작하는 경로가 박혀 있으면 **내 컴퓨터에서만 도는 코드**일 가능성이 큽니다.
+이 저장소의 「시작하기」 안내는 절대경로 없이 상대경로만 써서, 누구의 컴퓨터에서든 같은 줄로 따라 할 수 있습니다. 반대로 AI가 만든 코드에 `C:\Users\…`나 `/Users/…`로 시작하는 경로가 박혀 있으면 **내 컴퓨터에서만 도는 코드**일 가능성이 큽니다.
 
 ### 경로 구분자 `/`와 `\`
 
-웹 주소와 맥에서는 `/`를, 윈도우 파일 경로에서는 `\`를 봅니다. 윈도우의 많은 도구가 `/`도 알아듣기 때문에 코드 안에서는 `/`로 적는 편이 안전한 경우가 많습니다. 코드 문자열에서 역빗금은 특별한 뜻을 가지기 때문입니다. 탐색기에서 복사한 윈도우 경로를 파이썬 따옴표 안에 그대로 붙이면 실행도 하기 전에 멈춥니다.
+윈도우 파일 경로에서는 `\`를, 웹 주소와 맥에서는 `/`를 봅니다. 윈도우의 많은 도구가 `/`도 알아듣기 때문에 코드 안에서는 `/`로 적는 편이 안전한 경우가 많습니다. 코드 문자열에서 역빗금은 특별한 뜻을 가지기 때문입니다. 탐색기에서 복사한 윈도우 경로를 파이썬 따옴표 안에 그대로 붙이면 실행도 하기 전에 멈춥니다.
 
 ```python
 # 의도한 오류: 윈도우 경로를 따옴표 안에 그대로 붙여 넣었다
@@ -215,7 +215,7 @@ print("C:/new/table")      # /로 적어도 된다
 
 첫 줄은 `C:`와 `ew`(탭)`able` 두 줄로 찍히고, 나머지 두 줄은 적은 그대로 나옵니다. AI에게 윈도우용 코드를 부탁할 때 “**경로는 `/`로 쓰거나 `pathlib`을 써 줘**”라고 덧붙이면 이런 사고가 줄어듭니다.
 
-**파일 경로와 웹 주소(URL)는 다릅니다.** 브라우저 주소창의 `file:///Users/사용자이름/…/index.html`을 친구에게 보내면, 친구 컴퓨터에는 그 파일이 없어서 열리지 않습니다. 파일 경로는 컴퓨터 안의 파일을, URL은 네트워크로 접근할 자원의 위치를 가리킵니다. HTML 파일을 더블클릭해 열었을 때 일부 기능이 안 되는 것도 브라우저의 보안 규칙 때문일 수 있습니다. 이 차이는 5장의 `localhost`에서 이어집니다.
+**파일 경로와 웹 주소(URL)는 다릅니다.** 브라우저 주소창의 `file:///C:/Users/사용자이름/…/index.html`(맥은 `file:///Users/사용자이름/…/index.html`)을 친구에게 보내면, 친구 컴퓨터에는 그 파일이 없어서 열리지 않습니다. 파일 경로는 컴퓨터 안의 파일을, URL은 네트워크로 접근할 자원의 위치를 가리킵니다. HTML 파일을 더블클릭해 열었을 때 일부 기능이 안 되는 것도 브라우저의 보안 규칙 때문일 수 있습니다. 이 차이는 5장의 `localhost`에서 이어집니다.
 
 ## 4부. 명령은 어디서 출발하나
 
@@ -237,6 +237,8 @@ cp ../.env.example .env.local      # NEXT_PUBLIC_ anon 값만 남긴다
 npm install && npm run dev
 ```
 
+윈도우 PowerShell이라면 `source venv/bin/activate` 줄은 `venv\Scripts\Activate.ps1`로, `cp ../.env.example .env.local` 줄은 `copy ..\.env.example .env.local`로 바꿔 읽습니다.
+
 > 이 앱은 데이터베이스(Supabase)와 유튜브 API 키가 있어야 실제로 돌아갑니다. 오늘은 따라 하지 말고 **각 줄이 어느 폴더를 기준으로 하는지**만 읽습니다.
 
 - `pip install -r pipeline/requirements-dev.txt` — 루트에 서서 `pipeline` 안의 부품 목록을 읽는다
@@ -246,7 +248,24 @@ npm install && npm run dev
 
 ### 같은 명령, 다른 출발점 (움직이는 그림 2-C)
 
-터미널은 언제나 어떤 폴더 안에 서 있고, `pwd`가 그 위치를 알려 줍니다. `pipeline` 안에서 바로 `cd web`을 치면 실패합니다(`사용자이름`은 예, 오류 문구는 맥 기본 셸 zsh 기준).
+터미널은 언제나 어떤 폴더 안에 서 있고, `pwd`가 그 위치를 알려 줍니다. `pipeline` 안에서 바로 `cd web`을 치면 실패합니다(`사용자이름`은 예).
+
+**윈도우 · PowerShell**
+
+```text
+PS C:\Users\사용자이름\projects\utube-trend-tracer\pipeline> pwd
+
+Path
+----
+C:\Users\사용자이름\projects\utube-trend-tracer\pipeline
+
+PS C:\Users\사용자이름\projects\utube-trend-tracer\pipeline> cd web
+(빨간 오류 — 그 경로를 찾을 수 없다는 뜻. 문구는 버전 · 언어마다 다름)
+PS C:\Users\사용자이름\projects\utube-trend-tracer\pipeline> cd ..\web
+PS C:\Users\사용자이름\projects\utube-trend-tracer\web>
+```
+
+**맥 · 터미널** (오류 문구는 맥 기본 셸 zsh 기준)
 
 ```text
 $ pwd
@@ -324,7 +343,7 @@ food,음식,1.0
 
 - **옮기기(move)** — 원래 자리가 빈다. 파일은 멀쩡한데 코드는 아직 옛 주소를 찾고 있어서 그림이 깨진다. 옮길 때는 그 파일을 부르는 경로도 함께 고쳐야 한다
 - **복사하기(copy)** — 원본은 남고 사본이 생긴다. 사본을 고쳤는데 화면이 그대로라면, 화면이 쓰는 것은 다른 쪽 파일이다
-- 같은 저장장치 안에서 옮기면 주소 장부만 바뀌어 큰 파일도 순식간이고, 다른 장치로 옮기면 복사한 뒤 원본을 지운다. Finder와 파일 탐색기가 다른 저장장치로 끌어다 놓은 파일을 기본으로 ‘복사’하는 것도 그래서다
+- 같은 저장장치 안에서 옮기면 주소 장부만 바뀌어 큰 파일도 순식간이고, 다른 장치로 옮기면 복사한 뒤 원본을 지운다. 파일 탐색기와 Finder가 다른 저장장치로 끌어다 놓은 파일을 기본으로 ‘복사’하는 것도 그래서다
 
 → [움직이는 개념 노트에서 이동 · 복사 · 경로 고치기 단추 눌러 보기](https://daehyub71.github.io/vibecoding-it-basics/notes/part1-2.html)
 
@@ -344,7 +363,7 @@ AI가 만든 코드는 거의 언제나 파일 여러 개로 나오고, 경로�
 | AI의 말 · 오류 | 먼저 확인할 것 |
 | --- | --- |
 | “`src/components/Header.jsx`를 만드세요” | 어느 폴더 안의 `src`인지. 이 저장소라면 `web/src/…` |
-| “프로젝트 루트에 `.env`를 만드세요” | 어느 쪽의 루트인지. 이 저장소는 파이썬 쪽이 루트의 `.env`를, 화면 쪽은 `web/.env.local`을 쓴다. 점으로 시작해 만든 뒤 Finder에 안 보일 수도 있다 |
+| “프로젝트 루트에 `.env`를 만드세요” | 어느 쪽의 루트인지. 이 저장소는 파이썬 쪽이 루트의 `.env`를, 화면 쪽은 `web/.env.local`을 쓴다. 점으로 시작해 만든 뒤 맥 Finder에는 안 보일 수도 있다 |
 | `FileNotFoundError: [Errno 2] No such file or directory: 'data.csv'` | 파일이 아예 없다는 뜻이 아니라 **지금 서 있는 곳 기준으로** 없다는 뜻인 경우가 많다 |
 
 ```python
@@ -392,7 +411,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
 | 실습 | 시간 | 할 일 |
 | --- | --- | --- |
 | A. 연습용 폴더 만들기 | 5분 | 홈 폴더에 아래 폴더와 빈 텍스트 파일 만들기(이름은 예) |
-| B. 지금 서 있는 곳 확인하기 | 5분 | 터미널에서 `pwd` · `cd` · `ls` 실행 |
+| B. 지금 서 있는 곳 확인하기 | 5분 | PowerShell(맥은 터미널)에서 `pwd` · `cd` · `ls` 실행 |
 | C. 이름표만 바꿔 보기 | 5분 | CSV 두 줄을 적은 파일의 이름을 `.json`으로 바꾸고 확인 |
 | D. 절대경로 복사해 보기 | 2분 | 파일의 전체 주소를 복사해 메모장에 붙여 보기 |
 
@@ -404,9 +423,18 @@ path-practice/
     └── todo.txt
 ```
 
-맥은 Command+스페이스로 ‘터미널’을, 윈도우는 시작 단추에서 ‘PowerShell’을 검색해 엽니다. 아래 출력은 예시이며 컴퓨터마다 다릅니다.
+윈도우는 시작 단추에서 ‘PowerShell’을 검색해 엽니다. 맥은 Command+스페이스로 ‘터미널’을 검색해 엽니다. 아래 출력은 예시이며 컴퓨터마다 다릅니다.
 
-### 실습 A 명령 (Finder · 파일 탐색기로 만들어도 됩니다)
+### 실습 A 명령 (파일 탐색기 · Finder로 만들어도 됩니다)
+
+**윈도우 · PowerShell**
+
+```text
+PS C:\Users\사용자이름> mkdir path-practice\data, path-practice\notes
+(출력은 줄임)
+PS C:\Users\사용자이름> ni path-practice\data\practice.txt, path-practice\notes\todo.txt
+(출력은 줄임)
+```
 
 **맥 · 터미널**
 
@@ -415,16 +443,31 @@ $ mkdir -p path-practice/data path-practice/notes
 $ touch path-practice/data/practice.txt path-practice/notes/todo.txt
 ```
 
-**윈도우 · PowerShell**
-
-```text
-> mkdir path-practice\data, path-practice\notes
-> ni path-practice\data\practice.txt, path-practice\notes\todo.txt
-```
-
 ### 실습 B 명령
 
-`pwd`는 지금 서 있는 곳의 절대경로, `ls`는 이 폴더에 든 것, `cd`는 다른 폴더로 들어가기입니다. 세 명령은 PowerShell에서도 그대로 통합니다.
+`pwd`는 지금 서 있는 곳의 절대경로, `ls`는 이 폴더에 든 것, `cd`는 다른 폴더로 들어가기입니다. 세 명령은 PowerShell과 맥 터미널에서 똑같이 통합니다.
+
+**윈도우 · PowerShell** (출력은 표 모양이라 이름 열만 남기고 줄였습니다)
+
+```text
+PS C:\Users\사용자이름> pwd
+Path
+----
+C:\Users\사용자이름
+PS C:\Users\사용자이름> cd path-practice
+PS C:\Users\사용자이름\path-practice> ls
+Mode   ...   Name
+d----        data
+d----        notes
+PS C:\Users\사용자이름\path-practice> cd notes
+PS C:\Users\사용자이름\path-practice\notes> ls ..
+d----        data
+d----        notes
+PS C:\Users\사용자이름\path-practice\notes> cd ..
+PS C:\Users\사용자이름\path-practice> ls -Force
+d----        data
+d----        notes
+```
 
 **맥 · 터미널**
 
@@ -442,34 +485,20 @@ $ ls -a
 .       ..      data    notes
 ```
 
-**윈도우 · PowerShell** (출력은 표 모양이라 이름 열만 남기고 줄였습니다)
-
-```text
-> pwd
-Path
-----
-C:\Users\사용자이름
-> cd path-practice
-> ls
-Mode   ...   Name
-d----        data
-d----        notes
-> cd notes
-> ls ..
-d----        data
-d----        notes
-> cd ..
-> ls -Force
-d----        data
-d----        notes
-```
-
 - `ls ..`은 한 칸 바깥의 목록입니다
-- 숨김 파일까지 보려면 맥은 `ls -a`, 윈도우는 `ls -Force`. 맥에 보이는 `.`과 `..`이 ‘지금 있는 곳’과 ‘한 칸 바깥’입니다(PowerShell은 이 둘을 목록에 보여 주지 않습니다)
+- 숨김 파일까지 보려면 윈도우는 `ls -Force`, 맥은 `ls -a`. 맥에 보이는 `.`과 `..`이 ‘지금 있는 곳’과 ‘한 칸 바깥’입니다(PowerShell은 이 둘을 목록에 보여 주지 않습니다)
 
 ### 실습 C 명령
 
 `data/practice.txt`에 5부의 CSV 두 줄(`id,name,weight` / `food,음식,1.0`)을 적어 저장하고, 이름을 `practice.json`으로 바꿉니다. 윈도우는 탐색기 「보기」에서 「파일 확장명」을 켜야 확장자까지 바꿀 수 있습니다. 그다음 `data` 폴더에서 확인합니다.
+
+**윈도우 · PowerShell**
+
+```text
+PS C:\Users\사용자이름> cd ~\path-practice\data
+PS C:\Users\사용자이름\path-practice\data> python -m json.tool practice.json
+Expecting value: line 1 column 1 (char 0)
+```
 
 **맥 · 터미널**
 
@@ -481,23 +510,16 @@ $ file practice.json
 practice.json: Unicode text, UTF-8 text
 ```
 
-**윈도우 · PowerShell**
-
-```text
-> cd ~\path-practice\data
-> python -m json.tool practice.json
-Expecting value: line 1 column 1 (char 0)
-```
-
-- JSON 도구는 첫 글자부터 JSON이 아니라고 알리고, `file`은 이름표와 상관없이 그냥 글자라고 답합니다. 윈도우에는 `file` 명령이 없으니 첫 번째만 확인합니다
+- JSON 도구는 첫 글자부터 JSON이 아니라고 알립니다. 윈도우에는 `file` 명령이 없으니 이것만 확인합니다
+- 맥 · 리눅스는 `file`로도 확인합니다. `file`은 이름표와 상관없이 그냥 글자라고 답합니다
 - 윈도우에서 `python`이 안 되면 `py -m json.tool practice.json`도 해 보기. 파이썬이 아직 없으면 이 실습은 건너뛰어도 됩니다
 
 ### 실습 D
 
 | 운영체제 | 절대경로 복사 |
 | --- | --- |
+| 윈도우 파일 탐색기 | `todo.txt`를 오른쪽 클릭 → 「경로로 복사」(윈도우 10은 Shift를 누른 채 오른쪽 클릭) |
 | 맥 Finder | `todo.txt`를 고르고 Option, Command, C(`⌥⌘C`) |
-| 윈도우 파일 탐색기 | 오른쪽 클릭 → 「경로로 복사」(윈도우 10은 Shift를 누른 채 오른쪽 클릭) |
 
 메모장에 붙여 넣은 절대경로를 AI에게 그대로 보내면 **내 사용자 이름도 함께 간다**는 점을 기억합니다.
 
@@ -517,7 +539,7 @@ Expecting value: line 1 column 1 (char 0)
 | --- | --- |
 | 파일 · 폴더 · 경로 | 내용을 담은 물건 · 그 물건을 분류하는 공간 · 찾아가는 주소 |
 | 확장자 | 종류를 알리는 이름표. 내용을 바꾸지는 않는다 |
-| 절대경로 | `/` 또는 `C:`부터 적는 전체 주소 |
+| 절대경로 | `C:` 또는 `/`부터 적는 전체 주소 |
 | 상대경로 | 지금 자리에서의 길 안내. `.`은 여기, `..`은 한 칸 바깥 |
 | 프로젝트 루트 | 프로젝트의 가장 바깥 폴더 |
 | 현재 작업 디렉터리 | 명령이 파일을 찾는 출발점. 실행 전에 `pwd` |
@@ -538,7 +560,7 @@ Expecting value: line 1 column 1 (char 0)
 2. 실제 파일 위치와, 코드가 그 파일을 부르는 경로다.
 3. 지금 명령을 입력하는 작업 디렉터리가 프로젝트 루트인지 `pwd`로 확인한다.
 4. 아니다. 이름표만 바뀐다. 실제 형식을 바꾸려면 따로 변환해야 한다.
-5. `web`은 `pipeline` 안이 아니라 옆에 있다. README처럼 `cd ../web`으로 한 칸 나갔다가 들어가거나, 새 터미널을 루트에서 열고 `cd web`을 친다.
+5. `web`은 `pipeline` 안이 아니라 옆에 있다. README처럼 `cd ../web`으로 한 칸 나갔다가 들어가거나, 새 PowerShell(맥은 터미널) 창을 루트에서 열고 `cd web`을 친다.
 6. 아니다. 바뀐 파일은 `web/src/lib/supabase.ts`와 `web/src/lib/queries.ts`(그리고 새 시험 파일 `supabase.test.ts`)로, 화면을 그리는 `web/src/app/`이 아니라 데이터베이스 연결을 만드는 `lib` 폴더에 있었다.
 
 </details>
@@ -550,4 +572,4 @@ Part1-3 네트워크 · 인터넷 · 웹. 오늘은 내 컴퓨터 안의 물건�
 ## 출처
 
 - [daehyub71/utube-trend-tracer](https://github.com/daehyub71/utube-trend-tracer) 커밋 `7c6b568`(2026-10-19 확인) — `README_KO.md`의 「시작하기」 · 「구조」, 파일 목록(105개), 커밋 [`97cf491`](https://github.com/daehyub71/utube-trend-tracer/commit/97cf491)이 바꾼 파일과 메시지, `web/src/components/BoardCard.test.tsx` · `web/src/app/page.tsx`의 `import`, `web/tsconfig.json`의 `@` 별명, `config/categories.yaml`, `pipeline/app/config.py` 16행, 루트 · `web/`의 `README.md` · `.gitignore`
-- 학습용 단순화: 서랍장 · 택배 · 옆집 거실 비유, `path-practice/` · `photo.pdf` · `data.csv` · 로고 옮기기 같은 예시 이름, 5부 카테고리 예시의 Markdown · JSON · CSV 표기(실제 파일은 YAML). 터미널 출력은 맥(zsh) · Python 3.13 기준 예이며 컴퓨터와 버전마다 문구가 다릅니다.
+- 학습용 단순화: 서랍장 · 택배 · 옆집 거실 비유, `path-practice/` · `photo.pdf` · `data.csv` · 로고 옮기기 같은 예시 이름, 5부 카테고리 예시의 Markdown · JSON · CSV 표기(실제 파일은 YAML). 터미널 출력은 윈도우 PowerShell · 맥(zsh) · Python 3.13 기준 예이며 컴퓨터와 버전마다 문구가 다릅니다.

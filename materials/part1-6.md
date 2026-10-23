@@ -306,24 +306,24 @@ https://daehyub71.github.io/seoul-trade-insight/
 
 아래 출력은 예이며, 시각 자리(`[…]`)는 실행한 때에 따라 다릅니다.
 
-**맥 · 터미널**
-
-```text
-$ cd ~/port-practice
-$ printf '<meta charset="utf-8"><h1>안녕</h1>' > index.html
-$ python3 -m http.server 8000 --bind 127.0.0.1
-Serving HTTP on 127.0.0.1 port 8000 (http://127.0.0.1:8000/) ...
-127.0.0.1 - - […] "GET / HTTP/1.1" 200 -
-127.0.0.1 - - […] code 404, message File not found
-127.0.0.1 - - […] "GET /notice.html HTTP/1.1" 404 -
-```
-
 **윈도우 · PowerShell**
 
 ```text
 > cd ~\port-practice
 > Set-Content index.html '<meta charset="utf-8"><h1>안녕</h1>'
 > python -m http.server 8000 --bind 127.0.0.1
+Serving HTTP on 127.0.0.1 port 8000 (http://127.0.0.1:8000/) ...
+127.0.0.1 - - […] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - […] code 404, message File not found
+127.0.0.1 - - […] "GET /notice.html HTTP/1.1" 404 -
+```
+
+**맥 · 터미널**
+
+```text
+$ cd ~/port-practice
+$ printf '<meta charset="utf-8"><h1>안녕</h1>' > index.html
+$ python3 -m http.server 8000 --bind 127.0.0.1
 Serving HTTP on 127.0.0.1 port 8000 (http://127.0.0.1:8000/) ...
 127.0.0.1 - - […] "GET / HTTP/1.1" 200 -
 127.0.0.1 - - […] code 404, message File not found
@@ -351,9 +351,9 @@ Serving HTTP on 127.0.0.1 port 8000 (http://127.0.0.1:8000/) ...
 
 서버를 다시 켜고 브라우저의 개발자 도구를 엽니다.
 
-| 맥(크롬) | 윈도우 |
+| 윈도우 | 맥(크롬) |
 | --- | --- |
-| Option+Command+I | F12 |
+| F12 | Option+Command+I |
 
 「Network(네트워크)」 탭을 연 채로 새로고침하면 요청 목록이 생깁니다. 줄을 하나 눌러 요청 주소, 메서드(GET), 상태 코드(200 또는 404)를 찾고, 실습 A의 서버 기록과 짝을 맞춰 봅니다. **같은 요청을 클라이언트 쪽에서 본 기록과 서버 쪽에서 본 기록**입니다.
 
@@ -363,21 +363,21 @@ Serving HTTP on 127.0.0.1 port 8000 (http://127.0.0.1:8000/) ...
 
 명령으로도 서버의 대답을 받아 봅니다(출력은 2026-10-23에 받은 예).
 
-**맥 · 터미널**
-
-```text
-$ curl -s -o /dev/null -w '%{http_code}\n' https://yt-trend-radar-blond.vercel.app/channel/no-such-channel
-404
-$ curl -s https://yt-trend-radar-blond.vercel.app/api/health
-{"ok":true,"config":{"hasUrl":true,"hasAnonKey":true},"checkedAt":"2026-10-23T01:05:04.994Z","categories":6}
-```
-
 **윈도우 · PowerShell**
 
 ```text
 > curl.exe -s -o NUL -w "%{http_code}" https://yt-trend-radar-blond.vercel.app/channel/no-such-channel
 404
 > curl.exe -s https://yt-trend-radar-blond.vercel.app/api/health
+{"ok":true,"config":{"hasUrl":true,"hasAnonKey":true},"checkedAt":"2026-10-23T01:05:04.994Z","categories":6}
+```
+
+**맥 · 터미널**
+
+```text
+$ curl -s -o /dev/null -w '%{http_code}\n' https://yt-trend-radar-blond.vercel.app/channel/no-such-channel
+404
+$ curl -s https://yt-trend-radar-blond.vercel.app/api/health
 {"ok":true,"config":{"hasUrl":true,"hasAnonKey":true},"checkedAt":"2026-10-23T01:05:04.994Z","categories":6}
 ```
 
@@ -435,5 +435,5 @@ Part2-1 프론트엔드 vs 백엔드. 오늘 살짝 본 대로 클라이언트�
 
 - [daehyub71/yt-trend-radar](https://github.com/daehyub71/yt-trend-radar) 커밋 `6c9d53d`(2026-10-23 확인) — `README.md`(쿼터 전략 · 구조 그림), `web/src/app/page.tsx`(16 · 20 · 21~48 · 52 · 54~61 · 63~66 · 77행), `web/src/lib/db.ts`(10~21 · 24 · 51~54행), `web/src/components/VideoCard.tsx`(31~33행), `web/src/app/channel/[id]/page.tsx`(54행 `notFound()`), `web/src/app/api/health/route.ts`, `.github/workflows/collect.yml`(40~43행), `collector/sources/yt_client.py`(20행), `collector/core/quota.py`(4 · 29행)
 - 운영 상태(2026-10-23 확인): GitHub Actions의 `collect` · `health` 워크플로는 수동으로 꺼진 상태이고, 마지막 예약 수집은 2026-10-19에 실행되었습니다. 예제 앱의 첫 화면 · `/api/health` · 없는 채널 주소의 응답(200 · 200 · 404), `-blond`가 없는 기본 주소의 402, 브라우저가 받은 HTML과 코드 조각 7개의 `supabase` 0회는 같은 날 맥에서 확인했습니다.
-- 도구 동작: 연습 서버(`python -m http.server`)의 기록 형식은 맥에서 실행한 예이며, 윈도우 출력은 형식을 보여 주는 예입니다. Next.js가 `NEXT_PUBLIC_` 이름만 브라우저 코드에 싣는 동작, YouTube Data API의 하루 10,000단위 제한은 각 도구 · 서비스의 기본 규칙 기준입니다.
+- 도구 동작: 연습 서버(`python -m http.server`)의 윈도우 출력은 형식을 보여 주는 예이며, 기록 형식은 맥에서 실행한 예입니다. Next.js가 `NEXT_PUBLIC_` 이름만 브라우저 코드에 싣는 동작, YouTube Data API의 하루 10,000단위 제한은 각 도구 · 서비스의 기본 규칙 기준입니다.
 - 학습용 단순화: 움직이는 그림 6-A의 ‘먼저 기억해 둔 답을 본다’는 Next.js의 데이터 캐시 동작을 줄인 것이고, 6-D의 지도는 DNS 캐시 · 보안 연결(TLS) 단계를 생략했습니다.

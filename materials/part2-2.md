@@ -238,7 +238,7 @@ AI의 표를 받으면 세 가지를 맞춰 봅니다.
 택배 상자에 받는 사람과 ‘취급 주의’가 붙듯, 메시지에도 헤더가 붙습니다. `content-type`은 내용물의 형식을, `cache-control`은 얼마나 오래 다시 써도 되는지를 알립니다. 예제 앱의 데이터 파일을 실제로 받아 본 응답의 머리입니다(출력은 예, 줄임).
 
 ```text
-$ curl -i https://seoul-subway-insight.vercel.app/data/snapshot.json
+> curl.exe -i https://seoul-subway-insight.vercel.app/data/snapshot.json
 HTTP/2 200
 content-type: application/json; charset=utf-8
 cache-control: public, max-age=0, s-maxage=86400, stale-while-revalidate=604800
@@ -248,6 +248,8 @@ age: 33
 
 {"meta":{"start":"2026-06-09", …
 ```
+
+맥은 `curl -i …`로 같은 요청을 보냅니다(`curl.exe`를 쓰는 까닭은 직접 확인하기에서 다룹니다).
 
 | 줄 | 읽는 법 |
 | --- | --- |
@@ -269,12 +271,12 @@ age: 33
 예제 사이트에 `http://`로 들어가 봅니다(출력은 예, 줄임).
 
 ```text
-$ curl -I http://seoul-subway-insight.vercel.app/
+> curl.exe -I http://seoul-subway-insight.vercel.app/
 HTTP/1.0 308 Permanent Redirect
 Location: https://seoul-subway-insight.vercel.app/
 ```
 
-서버는 페이지 대신 `308`(영구 이동)과 `https://` 주소가 적힌 `Location`을 돌려줍니다. 브라우저는 그 안내를 따라 두 번째 요청을 보냅니다. **한 번 들어갔지만 요청은 두 번**인 셈입니다. Network 탭에 생각보다 많은 줄이 보이는 이유 가운데 하나입니다.
+맥은 `curl -I …`입니다. 서버는 페이지 대신 `308`(영구 이동)과 `https://` 주소가 적힌 `Location`을 돌려줍니다. 브라우저는 그 안내를 따라 두 번째 요청을 보냅니다. **한 번 들어갔지만 요청은 두 번**인 셈입니다. Network 탭에 생각보다 많은 줄이 보이는 이유 가운데 하나입니다.
 
 ## 8부. 캐시 — 미리 만든 답장
 
@@ -299,7 +301,7 @@ Location: https://seoul-subway-insight.vercel.app/
 
 캐시를 모르면, AI가 “수정 완료”라고 했는데 화면이 예전 그대로일 때 엉뚱한 곳을 다시 고치게 됩니다. 이 순서로 확인합니다.
 
-1. 강력 새로고침 — 맥 `Command+Shift+R` · 윈도우 `Ctrl+Shift+R`
+1. 강력 새로고침 — 윈도우 `Ctrl+Shift+R` · 맥 `Command+Shift+R`
 2. 개발자 도구 Network 탭의 **Disable cache**(캐시 사용 중지)를 켜고 새로고침
 3. 응답 헤더의 `cache-control` · `x-vercel-cache` · `age` 확인
 
@@ -307,7 +309,7 @@ Location: https://seoul-subway-insight.vercel.app/
 
 ## 9부. Network 탭 = 통화 기록
 
-통화 내역을 보면 언제 누구에게 전화했는지 알 수 있듯, 브라우저 개발자 도구의 **Network(네트워크) 탭**에서는 어떤 요청이 나갔고 어떤 응답이 돌아왔는지 볼 수 있습니다. 맥 크롬은 `Option+Command+I`, 윈도우는 `F12`로 엽니다.
+통화 내역을 보면 언제 누구에게 전화했는지 알 수 있듯, 브라우저 개발자 도구의 **Network(네트워크) 탭**에서는 어떤 요청이 나갔고 어떤 응답이 돌아왔는지 볼 수 있습니다. 윈도우는 `F12`, 맥 크롬은 `Option+Command+I`로 엽니다.
 
 1. 단추를 **누르기 전에** 탭을 연다
 2. 단추를 **한 번만** 누른다
@@ -362,7 +364,7 @@ Network 탭: GET …/data/trend.json → 404, 응답 본문은 HTML 안내 페�
 
 | 실습 | 시간 | 할 일 |
 | --- | --- | --- |
-| A. 응답의 세 부분 | 3분 | 데이터 파일에 `curl -i` → 상태 줄 · 헤더 · 본문 찾기 |
+| A. 응답의 세 부분 | 3분 | 데이터 파일에 `curl.exe -i`(맥은 `curl -i`) → 상태 줄 · 헤더 · 본문 찾기 |
 | B. 리다이렉트 따라가기 | 3분 | `http://`로 `-I` → 308과 `Location` → `-L`로 두 번 |
 | C. Network 탭 기록표 | 5분 | 요청 다섯 줄을 표로 적기 |
 | D. 캐시 비교 | 3분 | Size 칸의 캐시 표시 → Disable cache로 비교 → 다시 끄기 |
@@ -370,6 +372,25 @@ Network 탭: GET …/data/trend.json → 404, 응답 본문은 HTML 안내 페�
 ### 실습 A · B 명령
 
 아래 출력은 예시이며 때와 장소마다 다릅니다(`age` 값, `HIT` · `MISS` 등).
+
+**윈도우 · PowerShell**
+
+```text
+> $U = "https://seoul-subway-insight.vercel.app"
+> curl.exe -i "$U/data/snapshot.json"
+HTTP/2 200
+content-type: application/json; charset=utf-8
+cache-control: public, max-age=0, s-maxage=86400, stale-while-revalidate=604800
+x-vercel-cache: HIT
+...
+> curl.exe -I http://seoul-subway-insight.vercel.app/
+HTTP/1.0 308 Permanent Redirect
+Location: https://seoul-subway-insight.vercel.app/
+> curl.exe -sIL http://seoul-subway-insight.vercel.app/
+HTTP/1.0 308 Permanent Redirect
+...
+HTTP/2 200
+```
 
 **맥 · 터미널**
 
@@ -392,29 +413,10 @@ HTTP/2 200
 ...
 ```
 
-**윈도우 · PowerShell**
-
-```text
-> $U = "https://seoul-subway-insight.vercel.app"
-> curl.exe -i "$U/data/snapshot.json"
-HTTP/2 200
-content-type: application/json; charset=utf-8
-cache-control: public, max-age=0, s-maxage=86400, stale-while-revalidate=604800
-x-vercel-cache: HIT
-...
-> curl.exe -I http://seoul-subway-insight.vercel.app/
-HTTP/1.0 308 Permanent Redirect
-Location: https://seoul-subway-insight.vercel.app/
-> curl.exe -sIL http://seoul-subway-insight.vercel.app/
-HTTP/1.0 308 Permanent Redirect
-...
-HTTP/2 200
-```
-
 - 찾을 것: 첫 줄의 `200`, `content-type`의 `json`, `cache-control`, `x-vercel-cache`. 빈 줄 아래가 본문입니다
 - `-i`는 응답 헤더까지 보여 달라는 옵션, `-I`는 머리만, `-L`은 안내(`Location`)를 따라가라는 옵션입니다. `-sIL`에서는 응답 머리가 **두 번**(308 → 200) 나옵니다
 - 윈도우에서는 `curl`이 아니라 `curl.exe`로 씁니다(PowerShell에서 `curl`은 다른 명령의 별명일 수 있습니다)
-- 확인 문제 2번의 `405`도 직접 볼 수 있습니다. 맥 `curl -s -o /dev/null -w '%{http_code}\n' -X POST $U/data/snapshot.json`, 윈도우 `curl.exe -s -o NUL -w "%{http_code}" -X POST "$U/data/snapshot.json"` → `405`(예). 이 정적 사이트는 POST로 무엇도 저장하지 않으니 안전한 확인입니다
+- 확인 문제 2번의 `405`도 직접 볼 수 있습니다. 윈도우 `curl.exe -s -o NUL -w "%{http_code}" -X POST "$U/data/snapshot.json"`, 맥 `curl -s -o /dev/null -w '%{http_code}\n' -X POST $U/data/snapshot.json` → `405`(예). 이 정적 사이트는 POST로 무엇도 저장하지 않으니 안전한 확인입니다
 
 ### 실습 C — Network 탭 기록표
 
