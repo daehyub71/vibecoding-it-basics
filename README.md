@@ -29,7 +29,7 @@
 | 1-3 | 네트워크 vs 인터넷 vs 웹 | [강의 자료](materials/part1-3.md) · [개념 노트](https://daehyub71.github.io/vibecoding-it-basics/notes/part1-3.html) · [예제 저장소](https://github.com/daehyub71/seoul-bike-insight) |
 | 1-4 | IP 주소 vs 도메인 | [강의 자료](materials/part1-4.md) · [개념 노트](https://daehyub71.github.io/vibecoding-it-basics/notes/part1-4.html) · [예제 저장소](https://github.com/daehyub71/seoul-trade-insight) |
 | 1-5 | localhost와 포트는 무엇일까? | [강의 자료](materials/part1-5.md) · [개념 노트](https://daehyub71.github.io/vibecoding-it-basics/notes/part1-5.html) · [예제 저장소](https://github.com/daehyub71/etf-portfolio-lab) |
-| 1-6 | 서버 vs 클라이언트 | 준비 중 |
+| 1-6 | 서버 vs 클라이언트 | [강의 자료](materials/part1-6.md) · [개념 노트](https://daehyub71.github.io/vibecoding-it-basics/notes/part1-6.html) · [예제 저장소](https://github.com/daehyub71/yt-trend-radar) |
 
 ### Part 2 · 웹사이트는 어떻게 움직일까
 
