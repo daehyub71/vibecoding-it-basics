@@ -25,7 +25,7 @@
 | 편 | 제목 | 자료 |
 | --- | --- | --- |
 | 1-1 | 하드웨어 vs 소프트웨어 | [강의 자료](materials/part1-1.md) · [개념 노트](https://daehyub71.github.io/vibecoding-it-basics/notes/part1-1.html) · [예제 저장소](https://github.com/daehyub71/seoul-location-services-app) · [영상](https://youtu.be/HSNrBiDYb4k) |
-| 1-2 | 파일·폴더·경로의 정체 | [강의 자료](materials/part1-2.md) · [개념 노트](https://daehyub71.github.io/vibecoding-it-basics/notes/part1-2.html) · [예제 저장소](https://github.com/daehyub71/utube-trend-tracer) |
+| 1-2 | 파일·폴더·경로의 정체 | [강의 자료](materials/part1-2.md) · [개념 노트](https://daehyub71.github.io/vibecoding-it-basics/notes/part1-2.html) · [예제 저장소](https://github.com/daehyub71/utube-trend-tracer) · [영상](https://youtu.be/5zyIq5fJsco) |
 | 1-3 | 네트워크 vs 인터넷 vs 웹 | [강의 자료](materials/part1-3.md) · [개념 노트](https://daehyub71.github.io/vibecoding-it-basics/notes/part1-3.html) · [예제 저장소](https://github.com/daehyub71/seoul-bike-insight) |
 | 1-4 | IP 주소 vs 도메인 | [강의 자료](materials/part1-4.md) · [개념 노트](https://daehyub71.github.io/vibecoding-it-basics/notes/part1-4.html) · [예제 저장소](https://github.com/daehyub71/seoul-trade-insight) |
 | 1-5 | localhost와 포트는 무엇일까? | [강의 자료](materials/part1-5.md) · [개념 노트](https://daehyub71.github.io/vibecoding-it-basics/notes/part1-5.html) · [예제 저장소](https://github.com/daehyub71/etf-portfolio-lab) |
