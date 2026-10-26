@@ -171,9 +171,9 @@
       lab(o, "d2", [731, 264, 201, 44], vite ? "5174 · Vite" : "8001번 문", on, C.coral);
       lab(o, "d3", [1014, 279, 202, 44], vite ? "5175" : "8002번 문", on, "#5D6470");
       lab(o, "a", [434, 691, 201, 45], k === 5 ? "서버 A · 꺼짐" : vite ? "먼저 온 프로그램" : "서버 A", on, k === 5 ? "#CF3F33" : C.teal);
-      lab(o, "b", [46, 817, 202, 45], vite ? "Vite" : "서버 B", k >= 1 ? 1 : 0, C.coral);
-      lab(o, "g", [1385, 800, 233, 46], "netstat (관리인)", k === 3 ? 1 : 0, C.blue);
-      lab(o, "bd", [1356, 326, 209, 45], "명부", k === 3 ? 1 : 0, C.blue);
+      lab(o, "b", [46, 817, 202, 45], vite ? "Vite" : "서버 B", on, C.coral);
+      lab(o, "g", [1385, 800, 233, 46], k >= 3 ? "netstat (관리인)" : "관리인", on, C.blue);
+      lab(o, "bd", [1356, 326, 209, 45], "명부", on, C.blue);
       const t1 = vite ? "" : k === 5 ? "^C  서버 A 종료" : "Uvicorn running on :8000";
       const t2 = vite ? "Port 5173 is in use, trying another one…" : k === 1 ? "PS> … 8000" : k >= 2 && k <= 3 ? "Address already in use" : k === 4 ? "running on :8001" : k === 5 ? "running on :8000" : "";
       o.t1 = { type: "text", x: T1[0] + 14, y: T1[1] + 64, text: t1, size: 17, weight: 600, font: "mono", fill: "#9ED39B", op: on, z: 6 };
