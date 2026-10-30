@@ -100,7 +100,7 @@
 
 | 편 | 제목 | 자료 |
 | --- | --- | --- |
-| T1 | GitHub 스타로 AI 트렌드 읽기 — AI와 함께한 닷새 | [강의 자료](materials/t1.md) · [개념 노트](https://daehyub71.github.io/vibecoding-it-basics/notes/t1.html) · [예제 저장소](https://github.com/daehyub71/github-ai-star-trend) · [유튜브 영상](https://youtu.be/gu_lmreCIOE) |
+| T1 | GitHub 스타로 AI 트렌드 읽기 — AI와 함께한 닷새 | [강의 자료](materials/t1.md) · [개념 노트](https://daehyub71.github.io/vibecoding-it-basics/notes/t1.html) · [예제 저장소](https://github.com/daehyub71/github-ai-star-trend) · [유튜브 영상](https://youtu.be/gu_lmreCIOE) · [블로그 글](https://blog.naver.com/dayhyub/224459441505) |
 
 ## 함께 보면 좋은 강의
 
