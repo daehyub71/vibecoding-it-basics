@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ko">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta charset="utf-8">
+<title>움직이는 개념 노트 실전 T1</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+<style>
+/* 색 B(모눈 공책) — html 에 data-pal=B 기본
+/* 레이아웃: 가운데 한 기둥(최대 1040px) — 머리말 → 움직이는 그림 카드 → 메모. 카드마다 무대(SVG)·설명·조작. 영상 모드는 kit.js 가 1920×1080 틀로 바꾼다.
+   색: hw = 하드웨어(남색), sw = 소프트웨어(청록), hot = 지금 보는 곳(코랄), alert = 문제 상황. B안은 모눈 공책(잉크 파랑·초록·형광 노랑). */
+:root{
+  --bg:#FAF9F6; --bg2:#EEF1F4; --card:#FFFFFF; --fg:#1B2430; --muted:#5E6A79; --line:#D8DEE6;
+  --hw:#1F3A5F; --hw-soft:#E4EBF4; --sw:#0F7F7C; --sw-soft:#DCEFEC; --hot:#E2603E; --hot-soft:#FCE6DF; --hot-ink:#B4432A;
+  --alert:#C93C2E; --alert-soft:#FBE3DF; --onhw:#FFFFFF; --onsw:#FFFFFF; --onhot:#FFFFFF; --screen-off:#18202B; --finger:#F0BE9B;
+  --grid:transparent;
+  --f-sans:"IBM Plex Sans KR","Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+:root[data-pal="B"]{
+  --bg:#F4F5EF; --bg2:#E9ECE3; --card:#FFFFFF; --fg:#20242B; --muted:#5D6470; --line:#D3D8CB;
+  --hw:#2443A0; --hw-soft:#E3E8F7; --sw:#2D7A4E; --sw-soft:#DFEFE4; --hot:#F2B705; --hot-soft:#FDF3CF; --hot-ink:#7E5B00;
+  --alert:#CF3F33; --alert-soft:#FBE2DE; --onhw:#FFFFFF; --onsw:#FFFFFF; --onhot:#20242B; --screen-off:#1D2127; --finger:#EDBF9C; --grid:#E1E5D8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#10151C; --bg2:#18202A; --card:#17202B; --fg:#E6EBF1; --muted:#9AA6B5; --line:#2B3542;
+    --hw:#89ABDB; --hw-soft:#1D2A3B; --sw:#4CC1B6; --sw-soft:#12302D; --hot:#F08868; --hot-soft:#3A2119; --hot-ink:#F5A58C;
+    --alert:#F07B6B; --alert-soft:#3A1E1B; --onhw:#0E1520; --onsw:#06201D; --onhot:#1B0E09; --screen-off:#05080C; --finger:#C99A7A; --grid:transparent; color-scheme:dark;
+  }
+  :root[data-pal="B"]:not([data-theme="light"]){
+    --bg:#121519; --bg2:#1A1F25; --card:#1B2026; --fg:#E7EAE3; --muted:#A0A79C; --line:#2E343A;
+    --hw:#94ABF2; --hw-soft:#1F2740; --sw:#6CC593; --sw-soft:#163022; --hot:#F5C842; --hot-soft:#3A3011; --hot-ink:#F5C842;
+    --alert:#F07B6B; --alert-soft:#3A1E1B; --onhw:#0F1428; --onsw:#0A1F12; --onhot:#1A1505; --screen-off:#05070A; --finger:#C99A7A; --grid:#20262C;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10151C; --bg2:#18202A; --card:#17202B; --fg:#E6EBF1; --muted:#9AA6B5; --line:#2B3542;
+  --hw:#89ABDB; --hw-soft:#1D2A3B; --sw:#4CC1B6; --sw-soft:#12302D; --hot:#F08868; --hot-soft:#3A2119; --hot-ink:#F5A58C;
+  --alert:#F07B6B; --alert-soft:#3A1E1B; --onhw:#0E1520; --onsw:#06201D; --onhot:#1B0E09; --screen-off:#05080C; --finger:#C99A7A; --grid:transparent; color-scheme:dark;
+}
+:root[data-theme="dark"][data-pal="B"]{
+  --bg:#121519; --bg2:#1A1F25; --card:#1B2026; --fg:#E7EAE3; --muted:#A0A79C; --line:#2E343A;
+  --hw:#94ABF2; --hw-soft:#1F2740; --sw:#6CC593; --sw-soft:#163022; --hot:#F5C842; --hot-soft:#3A3011; --hot-ink:#F5C842;
+  --alert:#F07B6B; --alert-soft:#3A1E1B; --onhw:#0F1428; --onsw:#0A1F12; --onhot:#1A1505; --screen-off:#05070A; --finger:#C99A7A; --grid:#20262C;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{background:var(--bg);color:var(--fg);font-family:var(--f-sans);font-size:16px;line-height:1.65;margin:0;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 64px}
+.wrap{max-width:1040px;margin:0 auto;display:flex;flex-direction:column;gap:28px}
+.top{display:flex;flex-direction:column;gap:10px}
+.eyebrow{margin:0;font:600 .82rem/1.5 var(--f-mono);letter-spacing:.04em;color:var(--sw)}
+h1{margin:0;font-size:clamp(1.75rem,4.2vw,2.5rem);line-height:1.2;font-weight:700;text-wrap:balance}
+.lead{margin:0;color:var(--muted);max-width:64ch}
+.pal{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:4px}
+.pal span{font-size:.9rem;color:var(--muted);margin-right:2px}
+.pal button{font:600 .88rem var(--f-sans);border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:999px;padding:6px 14px;cursor:pointer}
+.pal button[aria-pressed="true"]{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+section.anim{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px;outline:none}
+.ahead{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 14px}
+.fig{font:700 .88rem var(--f-sans);color:var(--hot-ink);letter-spacing:.01em}
+h2{margin:0;font-size:1.4rem;line-height:1.3;text-wrap:balance}
+.where{font-size:.88rem;color:var(--muted)}
+.intro{margin:0;max-width:68ch}
+.tabs{display:flex;gap:4px;background:var(--bg2);border-radius:12px;padding:4px;align-self:flex-start}
+.tab{border:0;background:transparent;font:600 .92rem var(--f-sans);padding:7px 14px;border-radius:9px;color:var(--muted);cursor:pointer}
+.tab[aria-selected="true"]{background:var(--card);color:var(--fg);box-shadow:0 1px 2px rgba(20,30,45,.12)}
+.stage-wrap{overflow-x:auto;border-radius:14px;background-color:var(--bg);border:1px solid var(--line)}
+:root[data-pal="B"] .stage-wrap,:root[data-pal="B"] #vframe{background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+svg.stage{display:block;width:100%;min-width:640px;height:auto}
+.t-sans{font-family:var(--f-sans)} .t-mono{font-family:var(--f-mono)}
+.pane-steps,.pane-sb{display:flex;flex-direction:column;gap:12px}
+.cap{display:flex;flex-direction:column;gap:2px;min-height:4.6em}
+.cap-n{font:600 .85rem var(--f-mono);color:var(--sw)}
+.cap-t{font-size:1.08rem;max-width:70ch}
+.ctl{display:flex;flex-wrap:wrap;align-items:center;gap:8px}
+.ctl button,.sbb{font:600 .92rem var(--f-sans);border:1px solid var(--line);background:var(--card);color:var(--fg);border-radius:10px;padding:8px 14px;cursor:pointer}
+.ctl .b-play{background:var(--hw);border-color:var(--hw);color:var(--onhw);min-width:6.5em}
+.dots{display:flex;flex-wrap:wrap;gap:6px;margin-left:4px}
+.ctl .dot{width:34px;height:34px;padding:0;border-radius:50%;font:600 .84rem var(--f-mono)}
+.ctl .dot[aria-current="step"]{background:var(--hot);border-color:var(--hot);color:var(--onhot)}
+.sb-btns{display:flex;flex-wrap:wrap;gap:8px}
+.sb-status p{margin:.2em 0}
+.sb-status b{font-family:var(--f-mono);font-weight:600}
+.warn{color:var(--alert);font-weight:600}
+button:focus-visible{outline:3px solid var(--hot);outline-offset:2px}
+button:disabled{opacity:.42;cursor:not-allowed}
+.hint{display:none;margin:-6px 0 0;font-size:.84rem;color:var(--muted)}
+@media (max-width:700px){.hint{display:block}}
+.acc{margin:0;font-size:.88rem;color:var(--muted);border-top:1px dashed var(--line);padding-top:10px}
+.note{color:var(--muted);font-size:.9rem;display:flex;flex-direction:column;gap:6px}
+.note p{margin:0}
+/* ── 영상 모드(1920×1080) ── */
+body.video{padding:0;margin:0;overflow:hidden;width:1920px;height:1080px}
+body.video .wrap{display:none}
+#vframe{position:fixed;left:0;top:0;width:1920px;height:1080px;background-color:var(--bg);color:var(--fg);font-family:var(--f-sans)}
+#vframe .vh{position:absolute;left:110px;right:110px;top:34px;display:flex;justify-content:space-between;align-items:baseline;border-bottom:2px solid var(--line);padding-bottom:14px}
+#vframe .vsec{color:var(--hw);font-weight:700;font-size:30px}
+#vframe .vlec{color:var(--muted);font-size:24px}
+#vframe .vtitle{position:absolute;left:300px;top:116px;display:flex;align-items:baseline;gap:18px}
+#vframe .vfig{font:700 27px var(--f-sans);color:var(--hot-ink)}
+#vframe .vname{font-size:36px;font-weight:700}
+#vframe .vrail{position:absolute;left:40px;top:196px;width:236px;margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:14px}
+#vframe .vrail li{display:flex;align-items:center;gap:12px;font-size:21px;color:var(--muted);line-height:1.2}
+#vframe .vrail b{flex:none;width:38px;height:38px;border-radius:50%;border:2px solid var(--line);display:flex;align-items:center;justify-content:center;font:600 18px var(--f-mono);color:var(--muted);background:var(--card)}
+#vframe .vrail li.done b{border-color:var(--hw);color:var(--hw)}
+#vframe .vrail li.now{color:var(--fg);font-weight:700}
+#vframe .vrail li.now b{background:var(--hot);border-color:var(--hot);color:var(--onhot)}
+#vframe .vstage{position:absolute;left:300px;top:178px;width:1580px;height:870px}
+section.quiz{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:20px;display:flex;flex-direction:column;gap:14px}
+.quiz ol{margin:0;padding-left:1.4em;display:flex;flex-direction:column;gap:14px}
+.quiz li{padding-left:4px}
+.quiz .qq{margin:0 0 6px;font-weight:600}
+.quiz details{border-left:3px solid var(--sw);background:var(--sw-soft);border-radius:0 10px 10px 0;padding:8px 12px}
+.quiz summary{cursor:pointer;font-weight:600;color:var(--sw)}
+.quiz details p{margin:8px 0 0}
+.quiz .go{font-size:.9rem;color:var(--muted)}
+.quiz a{color:var(--hw)}
+@media (prefers-reduced-motion: reduce){ *{scroll-behavior:auto} }
+</style>
+
+<div class="wrap">
+  <header class="top">
+    <p class="eyebrow">바이브코딩 실전 T1 · GitHub 스타로 AI 트렌드 읽기</p>
+    <h1>움직이는 개념 노트 실전 T1</h1>
+    <p class="lead">영상에 나오는 움직이는 그림 네 개를 한 단계씩 넘겨 봅니다. 숫자는 예제 저장소 github-ai-star-trend 의 docs/MEASURE.md 실측값입니다. 맨 아래에 <a href="#quiz">확인 문제 풀이</a>가 있습니다.</p>
+  </header>
+  <section class="anim" data-anim="a91_01" id="a91_01" tabindex="-1" aria-labelledby="h-a91_01">
+    <div class="ahead"><span class="fig">움직이는 그림 T1-A</span><h2 id="h-a91_01">매주 사진 두 장을 빼면</h2><span class="where">짐작 대신 줄자</span></div>
+    <p class="intro">별 천 개 이상 저장소 6.6만 개의 기록을 하나씩 부르면 매주 13시간. 매주 별 수를 사진처럼 한꺼번에 받아 지난주와 빼면 후보가 나오고, 위쪽 몇천 개만 요일별 기록을 부른다.</p>
+    <div class="stage-wrap" style="background:#fff"><svg class="stage" role="img" aria-label="즉석사진 두 장, 라이트 테이블, 돋보기, 모래시계"></svg></div>
+    <p class="hint">그림을 옆으로 밀면 오른쪽 부분까지 볼 수 있습니다.</p>
+    <div class="pane-steps">
+      <div class="cap" aria-live="polite"><span class="cap-n"></span><span class="cap-t"></span></div>
+      <div class="ctl">
+        <button type="button" class="b-prev" id="a91_01-prev">◀ 이전</button>
+        <button type="button" class="b-play" id="a91_01-play" aria-pressed="false">▶ 재생</button>
+        <button type="button" class="b-next" id="a91_01-next">다음 ▶</button>
+        <button type="button" class="b-reset" id="a91_01-reset">↺ 처음부터</button>
+        <div class="dots" role="group" aria-label="단계 고르기"></div>
+      </div>
+    </div>
+  </section>
+  <section class="anim" data-anim="a91_02" id="a91_02" tabindex="-1" aria-labelledby="h-a91_02">
+    <div class="ahead"><span class="fig">움직이는 그림 T1-B</span><h2 id="h-a91_02">641개가 사라진 이유</h2><span class="where">첫 실제 실행</span></div>
+    <p class="intro">첫 발굴에서 에러 없이 641개가 비었다. 99개만 온 쪽에서 멈춘 코드, 저장된 불완전한 응답, 별 수가 같으면 흔들리는 순서 — 재현 테스트를 먼저 쓰고 고치자 3개로 줄었다.</p>
+    <div class="stage-wrap" style="background:#fff"><svg class="stage" role="img" aria-label="장부, 금속 서랍, 섞이는 카드, 수리 작업대"></svg></div>
+    <p class="hint">그림을 옆으로 밀면 오른쪽 부분까지 볼 수 있습니다.</p>
+    <div class="pane-steps">
+      <div class="cap" aria-live="polite"><span class="cap-n"></span><span class="cap-t"></span></div>
+      <div class="ctl">
+        <button type="button" class="b-prev" id="a91_02-prev">◀ 이전</button>
+        <button type="button" class="b-play" id="a91_02-play" aria-pressed="false">▶ 재생</button>
+        <button type="button" class="b-next" id="a91_02-next">다음 ▶</button>
+        <button type="button" class="b-reset" id="a91_02-reset">↺ 처음부터</button>
+        <div class="dots" role="group" aria-label="단계 고르기"></div>
+      </div>
+    </div>
+  </section>
+  <section class="anim" data-anim="a91_03" id="a91_03" tabindex="-1" aria-labelledby="h-a91_03">
+    <div class="ahead"><span class="fig">움직이는 그림 T1-C</span><h2 id="h-a91_03">주 시작 스타가 음수가 된 이유</h2><span class="where">4주만 먼저</span></div>
+    <p class="intro">한 주 증가가 주 끝 별 수보다 컸다. 사진을 찍은 뒤 기록을 받기까지 별이 더 늘어 위에서 너무 많이 뺐다. 아래서 쌓는 값과 비교해 큰 쪽을 쓰면 정확하고 음수가 될 수 없다.</p>
+    <div class="stage-wrap" style="background:#fff"><svg class="stage" role="img" aria-label="두 물탱크, 시계 둘, 저울"></svg></div>
+    <p class="hint">그림을 옆으로 밀면 오른쪽 부분까지 볼 수 있습니다.</p>
+    <div class="pane-steps">
+      <div class="cap" aria-live="polite"><span class="cap-n"></span><span class="cap-t"></span></div>
+      <div class="ctl">
+        <button type="button" class="b-prev" id="a91_03-prev">◀ 이전</button>
+        <button type="button" class="b-play" id="a91_03-play" aria-pressed="false">▶ 재생</button>
+        <button type="button" class="b-next" id="a91_03-next">다음 ▶</button>
+        <button type="button" class="b-reset" id="a91_03-reset">↺ 처음부터</button>
+        <div class="dots" role="group" aria-label="단계 고르기"></div>
+      </div>
+    </div>
+  </section>
+  <section class="anim" data-anim="a91_04" id="a91_04" tabindex="-1" aria-labelledby="h-a91_04">
+    <div class="ahead"><span class="fig">움직이는 그림 T1-D</span><h2 id="h-a91_04">누가 검색하나</h2><span class="where">근거는 어디서 찾나</span></div>
+    <p class="intro">Claude 에게 검색까지 맡기니 5개에 75센트, 찾아온 글 0개. 우리 코드가 검색해 주소 목록을 파일로 남기고 Claude 는 그 안에서만 판단하게 하니 검색 1번에 6건.</p>
+    <div class="stage-wrap" style="background:#fff"><svg class="stage" role="img" aria-label="닫힌 금속 상자와 빈 트레이, 유리 작업대와 서류철"></svg></div>
+    <p class="hint">그림을 옆으로 밀면 오른쪽 부분까지 볼 수 있습니다.</p>
+    <div class="pane-steps">
+      <div class="cap" aria-live="polite"><span class="cap-n"></span><span class="cap-t"></span></div>
+      <div class="ctl">
+        <button type="button" class="b-prev" id="a91_04-prev">◀ 이전</button>
+        <button type="button" class="b-play" id="a91_04-play" aria-pressed="false">▶ 재생</button>
+        <button type="button" class="b-next" id="a91_04-next">다음 ▶</button>
+        <button type="button" class="b-reset" id="a91_04-reset">↺ 처음부터</button>
+        <div class="dots" role="group" aria-label="단계 고르기"></div>
+      </div>
+    </div>
+  </section>
+  <section class="quiz" id="quiz" aria-labelledby="h-quiz">
+    <div class="ahead"><span class="fig">확인 문제</span><h2 id="h-quiz">스스로 점검 다섯 문제</h2><span class="where">강의 자료 「확인 문제」</span></div>
+    <p class="intro">먼저 스스로 답해 본 뒤 「풀이 보기」를 눌러 맞춰 보세요. 헷갈리면 「다시 보기」의 움직이는 그림으로 돌아가면 됩니다.</p>
+    <ol>
+      <li><p class="qq">후보 저장소가 2만 개쯤이라는 짐작이 맞았다면 어떤 방법으로 만들었을까? 실측이 6만 6천 개로 나왔을 때 무엇을 바꿨나?</p>
+        <details><summary>풀이 보기</summary><p>2만 개였다면 <b>저장소마다 별 기록(히스토리)을 하나씩 부르는 방법</b>으로 만들었을 것이다. 실측해 보니 스타 1,000개 이상이 65,922개였고, 전부 부르면 시간당 5,000번 한도로 <b>매주 13.2시간</b>이 걸렸다(<code>docs/MEASURE.md §1 · §2</code>). 그래서 매주 전체 별 수를 검색으로 한꺼번에 받아(약 22분) 지난주와 빼서 후보를 고르고, <b>위쪽 후보 몇천 개만</b> 요일별 기록을 부르는 방법으로 바꿨다(결정 27, <code>docs/SPEC.md:80</code>).</p><p class="go">다시 보기: <a href="#a91_01">움직이는 그림 T1-A 매주 사진 두 장을 빼면</a></p></details></li>
+      <li><p class="qq">641개는 왜 에러 메시지 없이 사라졌을까? 세 원인 가운데 「다시 돌려도 고쳐지지 않는」 것은 무엇이었나?</p>
+        <details><summary>풀이 보기</summary><p>코드가 <b>오류가 아니라 「끝났다」고 판단해서</b> 멈췄기 때문이다. 한 쪽에 99개만 오자 마지막 쪽이라 보고 정상 종료처럼 멈췄고, 기대값(65,924)과 맞춰 보고서야 드러났다(<code>docs/MEASURE.md:182</code>). 다시 돌려도 고쳐지지 않은 것은 <b>② 시간 초과로 일부만 온 응답이 저장되어</b> 재실행 때도 그 응답을 꺼내 쓴 것이다. 그런 응답은 저장하지 않고 한 번 더 받게 고쳤다(<code>docs/MEASURE.md:189</code>).</p><p class="go">다시 보기: <a href="#a91_02">움직이는 그림 T1-B 641개가 사라진 이유</a></p></details></li>
+      <li><p class="qq">주간 별 파일을 「한 번 쓰면 다시 쓰지 않게」 만든 이유는? 그 규칙 때문에 14시간째 연결이 끊겼을 때 어떻게 고쳤나?</p>
+        <details><summary>풀이 보기</summary><p>지난 기록이 슬그머니 바뀌면 <b>추이 그래프를 믿을 수 없기</b> 때문이다(<code>docs/SPEC.md:141</code> FR-2.2). 주간 파일은 모든 저장소를 끝낸 뒤 한꺼번에 쓰므로 14시간째 끊겼을 때도 반쯤 쓴 파일은 없었다(<code>docs/MEASURE.md:222</code>). 고친 것은 연결 오류를 6번 다시 시도하고, <b>그래도 안 되면 건너뛰지 않고 멈추는 것</b>이다. 건너뛰면 고칠 수 없는 파일에 구멍이 나기 때문이다. 멈춘 뒤에는 받아 둔 응답으로 이어 돌렸다(<code>docs/MEASURE.md:223~224</code>).</p><p class="go">다시 보기: <a href="#a91_03">움직이는 그림 T1-C 주 시작 스타가 음수가 된 이유</a></p></details></li>
+      <li><p class="qq">Claude에게 검색까지 맡긴 방법이 출처를 0개 가져온 까닭은? 결정 46은 무엇을 우리 코드 쪽에 남겼나?</p>
+        <details><summary>풀이 보기</summary><p>모델이 쓴 검색 코드가 오류로 죽고 <b>같은 검색어를 되풀이해 횟수 제한에 걸려</b>, 받은 결과 안에 제3자 글이 있었는데도 빈 목록을 돌려줬다(<code>docs/MEASURE.md:248</code>). 결정 46은 <b>검색과 근거 목록 파일을 우리 코드 쪽에</b> 남겼다 — 코드가 검색해 주소 목록을 파일로 남기고, Claude는 그 목록 안에서만 판정 · 요약한다(<code>docs/SPEC.md:98</code>). 그래서 무엇을 봤는지가 남고, 카드의 링크도 코드가 근거 번호로 붙인다(<code>prompts/card.md:16</code>).</p><p class="go">다시 보기: <a href="#a91_04">움직이는 그림 T1-D 누가 검색하나</a></p></details></li>
+      <li><p class="qq">정답 세트 200개 가운데 30개는 왜 초안을 가리고 정했을까? 규칙을 고친 뒤 「처음 보는 30개」를 따로 채점한 이유는?</p>
+        <details><summary>풀이 보기</summary><p>초안을 보고 고르면 <b>초안 쪽으로 기울기 쉬운데, 그 기울기를 재려고</b> 초안을 덮고 정한 묶음을 따로 두었다(결정 41). 실제로 블라인드 30의 카테고리 일치는 63.2%였는데 초안을 보고 검수한 170은 고친 것이 0개였다(<code>docs/MEASURE.md:313~315</code>). 처음 보는 30개를 따로 채점한 것은 <b>정답을 외웠는지, 기준을 배웠는지</b> 가리기 위해서다. 처음 보는 30개에서도 카테고리 89.5%가 나와 외운 게 아니라는 근거가 됐다(<code>docs/MEASURE.md:356</code>).</p></details></li>
+    </ol>
+  </section>
+  <footer class="note"><p>정확성 메모 — 숫자는 2026-10-26~10-30 실측(docs/MEASURE.md). 급등 표시가 붙은 개인 계정 이름은 싣지 않았습니다.</p></footer>
+</div>
+<script>document.documentElement.setAttribute("data-pal", "B");</script>
+<script src="kit.js"></script>
+<script src="a91_defs.js"></script>
+<script>IT.start();</script>

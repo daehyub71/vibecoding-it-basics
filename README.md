@@ -94,6 +94,14 @@
 | 7-1 | 아이디어부터 배포까지 실제 GitHub 프로젝트로 완주하기 | 준비 중 |
 | 7-2 | 바이브코딩에서 흔한 오류 10가지 | 준비 중 |
 
+## 실전편 · 바이브코딩 실전
+
+> 39편 강의에서 익힌 개념으로 실제 서비스를 AI와 함께 만든 과정을, 만든 순서 그대로 보여 주는 제작기입니다.
+
+| 편 | 제목 | 자료 |
+| --- | --- | --- |
+| T1 | GitHub 스타로 AI 트렌드 읽기 — AI와 함께한 닷새 | [강의 자료](materials/t1.md) · [개념 노트](https://daehyub71.github.io/vibecoding-it-basics/notes/t1.html) · [예제 저장소](https://github.com/daehyub71/github-ai-star-trend) |
+
 ## 함께 보면 좋은 강의
 
 코드를 제대로 배우고 싶은 분께는 「생각하는 파이썬」 강의와 예제 저장소 [think-python-examples](https://github.com/daehyub71/think-python-examples)를 권합니다.
