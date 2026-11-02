@@ -10,7 +10,7 @@
 
 | 항목 | 주소 |
 | --- | --- |
-| 강의 영상 | 바이브코딩 기초 : IT 기본지식 Part1-6 (유튜브 공개 후 추가) |
+| 강의 영상 | [바이브코딩 기초 : IT 기본지식 Part1-6](https://youtu.be/IDIE5KwggAQ) |
 | 예제 저장소 | [github.com/daehyub71/yt-trend-radar](https://github.com/daehyub71/yt-trend-radar) — 유튜브 트렌드 레이더(화면 이름 「지금 뜨는 유튜브」) |
 | 예제 앱 | [yt-trend-radar-blond.vercel.app](https://yt-trend-radar-blond.vercel.app) |
 | 움직이는 개념 노트 | [움직이는 그림 4개](https://daehyub71.github.io/vibecoding-it-basics/notes/part1-6.html) — 단계 넘기기 · 재생 · 직접 해 보기 |

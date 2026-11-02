@@ -10,7 +10,7 @@ IP 주소는 네트워크에서 목적지를 찾아 데이터를 전달할 때 �
 
 | 항목 | 주소 |
 | --- | --- |
-| 강의 영상 | 바이브코딩 기초 : IT 기본지식 Part1-4 (유튜브 공개 후 추가) |
+| 강의 영상 | [바이브코딩 기초 : IT 기본지식 Part1-4](https://youtu.be/nFfxnEyVQPQ) |
 | 예제 저장소 | [github.com/daehyub71/seoul-trade-insight](https://github.com/daehyub71/seoul-trade-insight) — 서울 상권 인텔리전스 (라이브: [daehyub71.github.io/seoul-trade-insight](https://daehyub71.github.io/seoul-trade-insight/)) |
 | 움직이는 개념 노트 | [움직이는 그림 4개](https://daehyub71.github.io/vibecoding-it-basics/notes/part1-4.html) — 단계 넘기기 · 재생 · 직접 해 보기 |
 | 강의 목차 | [39편 전체 목차](https://daehyub71.github.io/vibecoding-it-basics/) |

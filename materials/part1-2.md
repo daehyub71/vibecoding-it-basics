@@ -10,7 +10,7 @@
 
 | 항목 | 주소 |
 | --- | --- |
-| 강의 영상 | (유튜브 공개 후 추가) |
+| 강의 영상 | [바이브코딩 기초 : IT 기본지식 Part1-2](https://youtu.be/5zyIq5fJsco) |
 | 예제 저장소 | [github.com/daehyub71/utube-trend-tracer](https://github.com/daehyub71/utube-trend-tracer) — 관심 분야에서 지금 뜨는 유튜브 영상과 유튜버를 보여 주는 서비스 |
 | 움직이는 개념 노트 | [움직이는 그림 4개](https://daehyub71.github.io/vibecoding-it-basics/notes/part1-2.html) — 단계 넘기기 · 재생 · 직접 해 보기 |
 | 강의 목차 | [39편 전체 목차](https://daehyub71.github.io/vibecoding-it-basics/) |

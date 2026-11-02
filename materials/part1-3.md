@@ -10,7 +10,7 @@
 
 | 항목 | 주소 |
 | --- | --- |
-| 강의 영상 | 바이브코딩 기초 : IT 기본지식 Part1-3 (유튜브 공개 후 추가) |
+| 강의 영상 | [바이브코딩 기초 : IT 기본지식 Part1-3](https://youtu.be/34EZKQxZleg) |
 | 예제 저장소 | [github.com/daehyub71/seoul-bike-insight](https://github.com/daehyub71/seoul-bike-insight) — 서울 따릉이 인사이트 · 배포본 [seoul-bike-insight.vercel.app](https://seoul-bike-insight.vercel.app) |
 | 움직이는 개념 노트 | [움직이는 그림 4개](https://daehyub71.github.io/vibecoding-it-basics/notes/part1-3.html) — 단계 넘기기 · 재생 · 직접 해 보기 |
 | 강의 목차 | [39편 전체 목차](https://daehyub71.github.io/vibecoding-it-basics/) |

@@ -10,7 +10,7 @@
 
 | 항목 | 주소 |
 | --- | --- |
-| 강의 영상 | 바이브코딩 기초 : IT 기본지식 Part2-1 (유튜브 공개 후 추가) |
+| 강의 영상 | [바이브코딩 기초 : IT 기본지식 Part2-1](https://youtu.be/A_yIIYkUJBg) · [블로그 글](https://blog.naver.com/dayhyub/224462623752) |
 | 예제 저장소 | [github.com/daehyub71/smart-korean-legal-platform](https://github.com/daehyub71/smart-korean-legal-platform) — 스마트 법령 플랫폼 |
 | 움직이는 개념 노트 | [움직이는 그림 4개](https://daehyub71.github.io/vibecoding-it-basics/notes/part2-1.html) — 단계 넘기기 · 재생 · 직접 해 보기 |
 | 강의 목차 | [39편 전체 목차](https://daehyub71.github.io/vibecoding-it-basics/) |
