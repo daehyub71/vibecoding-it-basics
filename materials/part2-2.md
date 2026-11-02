@@ -10,7 +10,7 @@
 
 | 항목 | 주소 |
 | --- | --- |
-| 강의 영상 | 바이브코딩 기초 : IT 기본지식 Part2-2 (유튜브 공개 후 추가) |
+| 강의 영상 | [바이브코딩 기초 : IT 기본지식 Part2-2](https://youtu.be/gyRhGAncfp4) · [블로그 글](https://blog.naver.com/dayhyub/224462624202) |
 | 예제 저장소 | [github.com/daehyub71/seoul-subway-insight](https://github.com/daehyub71/seoul-subway-insight) — 서울 지하철 인사이트 |
 | 예제 사이트 | [seoul-subway-insight.vercel.app](https://seoul-subway-insight.vercel.app) — 실습에서 요청을 보낼 곳 |
 | 움직이는 개념 노트 | [움직이는 그림 4개](https://daehyub71.github.io/vibecoding-it-basics/notes/part2-2.html) — 단계 넘기기 · 재생 · 직접 해 보기 |
